@@ -1,0 +1,63 @@
+.form-grid {
+  width: 700px;
+  height: 624px;
+  display: flex;
+  margin: 2rem;
+  padding: 3rem 3rem;
+  gap: 5px;
+  background-color: #d5d5d5;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  box-shadow: black;
+}
+
+.form-container,
+.form-label {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .form-label {
+    width: 100%;
+  }
+
+  h1,
+  p {
+    text-align: center;
+  }
+}
+
+.btn-project,
+.input-project {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  outline: none;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-project {
+  width: 100%;
+  padding-right: 40px; /* Espacio para el botón */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.toggle-password mat-icon {
+  font-size: 24px;
+}

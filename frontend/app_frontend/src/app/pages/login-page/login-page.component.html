@@ -1,0 +1,60 @@
+<div class="form-grid">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="form-container">
+    <h1>GGTrack</h1>
+    @if (!loginFunction) {
+      <div class="form-label">
+        <label>Correo electrónico</label>
+        <input class="input-project" type="text" formControlName="email" required />
+      </div>
+    }
+    <div class="form-label">
+      <label>Nombre de usuario</label>
+      <input class="input-project" type="text" formControlName="username" />
+    </div>
+    <div class="form-label">
+      <label>Contraseña</label>
+      <div class="input-container">
+        <input
+          [type]="hide() ? 'password' : 'text'"
+          class="input-project"
+          formControlName="password"
+        />
+        <button type="button" class="toggle-password d-flex" (click)="clickEvent($event)">
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    @if (loginFunction) {
+      <p>
+        ¿No tienes cuenta?
+        <button
+          class="border-0 bg-transparent"
+          type="button"
+          (click)="changeFunction(!loginFunction)"
+        >
+          Registrate aqui
+        </button>
+      </p>
+    } @else {
+      <p>
+        ¿Tienes cuenta?
+        <button
+          class="border-0 bg-transparent"
+          type="button"
+          (click)="changeFunction(!loginFunction)"
+        >
+          Identificate aqui
+        </button>
+      </p>
+    }
+
+    @if (showErrorMessage) {
+      <span class="text-danger">{{ errorMessage }}</span>
+    }
+    @if (loginFunction) {
+      <button class="btn-project" type="submit">Iniciar sesión</button>
+    } @else {
+      <button class="btn-project" type="submit">Registrarse</button>
+    }
+  </form>
+</div>
