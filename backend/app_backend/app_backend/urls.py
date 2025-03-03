@@ -23,4 +23,6 @@ urlpatterns = [
     path('api/v1/',include('djoser.urls')),
     path('api/v1/',include('djoser.urls.authtoken')),
     path(r'api/v1/login/', api.Login.as_view()),
+    path('api/v1/videojuegos/', api.Videogames.as_view({'get':'list'})),
+    path(r'api/v1/videojuegos/<str:pk>/', api.VideogameDetail.as_view({'get': 'retrieve'}))
 ]
