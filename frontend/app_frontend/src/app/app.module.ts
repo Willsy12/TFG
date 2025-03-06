@@ -12,13 +12,12 @@ import { PrincipalPageComponent } from './pages/principal-page/principal-page.co
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
+import { MatListModule } from '@angular/material/list';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, PrincipalPageComponent],
+  declarations: [AppComponent, LoginPageComponent, PrincipalPageComponent, NavBarComponent],
   imports: [
     BrowserModule,
     FormsModule, // ✅ Agregar aquí
@@ -27,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSlideToggleModule,
     RouterModule.forRoot(routes),
     CommonModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,39 @@
+.videogame-grid {
+  display: flex;
+  justify-content: center;
+  background-color: #adadad;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Recorta la imagen sin deformarla */
+    border-radius: 10px;
+  }
+  button {
+    background-color: transparent;
+    color: white;
+  }
+}
+
+.videogame-detail-container,
+.videogame-header,
+.videogames-button-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.videogame-detail-container {
+  margin-top: 3rem;
+}
+.videogame-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+}
+
+.videogame-properties {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3 columnas */
+}

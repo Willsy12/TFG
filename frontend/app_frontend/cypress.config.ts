@@ -7,9 +7,9 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-  env:{
-    username: "validUsername",
-    email: "validEmail@email.com",
-    password: "validPassword1"
-  }
+  env: {
+    username: 'validUsername',
+    email: 'validEmail@email.com',
+    password: 'validPassword1',
+  },
 });

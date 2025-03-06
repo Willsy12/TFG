@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center align-items-center gap-2">
+  <button class="bg-transparent" (click)="previousPage()" [disabled]="currentPage === 1">
+    Anterior
+  </button>
+
+  @for (page of pages; track $index) {
+    @if (typeof page === 'number') {
+      <button class="bg-transparent" (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    } @else {
+      <span>...</span>
+    }
+  }
+
+  <button class="bg-transparent" (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Siguiente
+  </button>
+</div>

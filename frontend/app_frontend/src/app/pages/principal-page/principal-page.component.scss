@@ -1,0 +1,21 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.body-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.content-layout {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.app-footer {
+  background-color: #d5d5d5;
+  padding: 25px;
+}

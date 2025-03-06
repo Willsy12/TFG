@@ -1,0 +1,49 @@
+.filter-grid {
+  display: flex;
+  gap: 2rem;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  outline: none;
+  padding: 5px;
+}
+
+select {
+  width: 100%;
+  height: 40px;
+  outline: none;
+  padding: 5px;
+}
+
+.filter-button-grid {
+  display: flex;
+  gap: 1rem;
+}
+button {
+  width: 140px;
+  height: 40px;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.green-color {
+  background-color: #30fb77;
+}
+
+.gray-color {
+  background-color: #d5d5d5;
+  margin-top: 2rem;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.selectVideogame {
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+}

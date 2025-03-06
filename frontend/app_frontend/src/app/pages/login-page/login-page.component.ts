@@ -44,7 +44,7 @@ export class LoginPageComponent implements OnInit {
     this.authService.login(username, password).subscribe({
       next: (response: any) => {
         localStorage.setItem('userId', response.user_id);
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.auth_token);
         this.router.navigate(['/Inicio']);
       },
       error: (response) => {
