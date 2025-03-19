@@ -102,6 +102,12 @@
   .content p {
     margin-top: 1.5rem;
   }
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
   .divider {
     width: 1px;
@@ -188,6 +194,6 @@
   }
 </style>
 
-<main [ngClass]="{ centered: isLoginPage }" class="main">
+<main [ngClass]="{ centered: isLoginPage }" class="main container">
   <router-outlet></router-outlet>
 </main>

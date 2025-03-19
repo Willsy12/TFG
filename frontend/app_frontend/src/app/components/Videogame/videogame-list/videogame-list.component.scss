@@ -1,0 +1,28 @@
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: 3rem; /* Espaciado entre imágenes */
+  justify-content: center;
+  padding: 20px;
+}
+
+.game-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 200px; /* Ancho máximo */
+  height: 260px; /* Alto máximo */
+}
+
+.game-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Recorta la imagen sin deformarla */
+  border-radius: 10px;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}

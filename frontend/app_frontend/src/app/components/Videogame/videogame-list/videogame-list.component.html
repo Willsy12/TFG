@@ -1,0 +1,7 @@
+<div class="games-grid">
+  @for (videogame of videogames; track videogame.id) {
+    <a [routerLink]="['/Inicio/detail', videogame.id]" class="game-card">
+      <img [src]="videogame.imagen" alt="Videogame Image" />
+    </a>
+  }
+</div>

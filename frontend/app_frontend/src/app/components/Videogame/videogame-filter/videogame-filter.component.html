@@ -1,0 +1,47 @@
+<form [formGroup]="filterVideogameForm" (ngSubmit)="onSubmit()">
+  <div class="filter-grid">
+    <input placeholder="Buscar..." formControlName="titulo" />
+    <div class="filter-button-grid">
+      @if (!isCollapsed) {
+        <button class="green-color">Buscar <mat-icon>search</mat-icon></button>
+      }
+      <button
+        type="button"
+        class="bg-white"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseExample"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+        (click)="toggleCollapse()"
+      >
+        {{ isCollapsed ? 'Ocultar filtros' : 'Mostrar filtros' }} <mat-icon>filter_alt</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="collapse gray-color" [ngClass]="{ show: isCollapsed }" id="collapseExample">
+    <div class="row mb-5">
+      <div class="col d-flex flex-column">
+        <label>Año lanzamiento</label>
+        <input placeholder="2019" formControlName="añoLanzamiento" />
+      </div>
+      <div class="col d-flex flex-column">
+        <label>Género</label>
+        <select class="selectVideogame" formControlName="genero">
+          @for (genre of genres; track genre) {
+            <option [value]="genre">{{ genreMap[genre] }}</option>
+          }
+        </select>
+      </div>
+      <div class="col d-flex flex-column">
+        <label>Desarrolladora</label>
+        <input placeholder="EA" formControlName="desarrolladora" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="filter-button-grid justify-content-end">
+        <button class="bg-white" type="button" (click)="clearFilters()">Limpiar Filtros</button>
+        <button class="green-color">Buscar <mat-icon>search</mat-icon></button>
+      </div>
+    </div>
+  </div>
+</form>
