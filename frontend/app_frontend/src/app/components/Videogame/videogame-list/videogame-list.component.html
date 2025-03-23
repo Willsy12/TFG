@@ -1,7 +1,11 @@
-<div class="games-grid">
-  @for (videogame of videogames; track videogame.id) {
-    <a [routerLink]="['/Inicio/detail', videogame.id]" class="game-card">
-      <img [src]="videogame.imagen" alt="Videogame Image" />
-    </a>
-  }
-</div>
+@if (videogames.length > 0) {
+  <div class="games-grid">
+    @for (videogame of videogames; track videogame.id) {
+      <a [routerLink]="['/Inicio/detail', videogame.id]" class="game-card">
+        <img [src]="videogame.imagen" alt="Videogame Image" />
+      </a>
+    }
+  </div>
+} @else {
+  <h2 class="d-flex">Ningun videojuego encontrado</h2>
+}

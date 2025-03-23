@@ -7,10 +7,16 @@ import { Videojuegos } from '../../../interfaces/videojuegos';
 import { VideojuegosFilter } from '../../../interfaces/videojuegos-filter';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-videogame-layout',
-  imports: [VideogameListComponent, VideogameFilterComponent, PaginatorComponent],
+  imports: [
+    VideogameListComponent,
+    VideogameFilterComponent,
+    PaginatorComponent,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './videogame-layout.component.html',
   styleUrl: './videogame-layout.component.scss',
 })
@@ -18,7 +24,7 @@ export class VideogameLayoutComponent implements OnInit {
   videogames: Videojuegos[] = [];
   pagedVideogames: Videojuegos[][] = [];
   totalVideogames: Videojuegos[] = [];
-
+  loading: boolean = true;
   totalPages: number = 0;
   maxNumberVideogames: number = 9;
   currentPage: number = 0;
@@ -33,11 +39,13 @@ export class VideogameLayoutComponent implements OnInit {
   }
 
   searchVideogameItems() {
+    this.loading = true;
     this.searchService.searchVideogames().subscribe({
       next: (result: Videojuegos[]) => {
         this.paginateVidegames(result);
         this.videogames = this.pagedVideogames.at(this.currentPage) ?? [];
         this.totalPages = Math.ceil(result.length / this.maxNumberVideogames);
+        this.loading = false;
       },
     });
   }

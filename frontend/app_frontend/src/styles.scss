@@ -14,9 +14,42 @@ input,
 button {
   border: 0;
   border-radius: 6px;
+  outline: none;
+  height: 40px;
+  outline: none;
 }
 
 .previous-link {
   color: black;
   width: fit-content;
+}
+
+.green-color {
+  background-color: #30fb77;
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 0px !important; /* Elimina el borde redondeado */
+}
+
+.cancel-button,
+.accept-button {
+  width: 8rem;
+  height: 2rem;
+  text-align: center;
+}
+
+.accept-button {
+  background-color: #30fb77;
+}
+.cancel-button {
+  background-color: #f32020;
+}
+
+.custom-list-grid {
+  margin: 3rem 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 20px;
 }

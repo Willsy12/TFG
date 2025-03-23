@@ -1,0 +1,30 @@
+<div class="dialog-container">
+  @if (data.method === 'deleteCustomList') {
+    <label mat-dialog-content>{{ data.message }}</label>
+    <div mat-dialog-actions class="d-flex gap-5 mt-4">
+      <button class="cancel-button" mat-button (click)="closeDialog()">Cancelar</button>
+      <button class="accept-button" mat-button (click)="executeAction()">Aceptar</button>
+    </div>
+  } @else if (data.method === 'searchVideogames') {
+    <div class="videogame-search">
+      <app-videogame-filter
+        (filterVideogameEvent)="searchFilterVideogame($event)"
+        (clearVideogames)="clearFilters($event)"
+      ></app-videogame-filter>
+      <div class="games-grid">
+        @for (videogame of videogames; track videogame.id) {
+          <button (click)="addVideogameTag(videogame)" class="game-card">
+            <img [src]="videogame.imagen" alt="Videogame Image" />
+          </button>
+        }
+      </div>
+      <app-paginator (pageChange)="nextPage($event)" [totalPages]="totalPages"></app-paginator>
+    </div>
+  } @else if (data.method === 'logout') {
+    <label mat-dialog-content>{{ data.message }}</label>
+    <div mat-dialog-actions class="d-flex gap-5 mt-4">
+      <button class="cancel-button" mat-button (click)="closeDialog()">No</button>
+      <button class="accept-button" mat-button (click)="logout()">Si</button>
+    </div>
+  }
+</div>

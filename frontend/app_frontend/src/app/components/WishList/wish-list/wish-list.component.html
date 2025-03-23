@@ -1,0 +1,8 @@
+<div class="videogame-container">
+  @if (!loading) {
+    <app-videogame-list [videogames]="videogames"></app-videogame-list>
+    <app-paginator (pageChange)="nextPage($event)" [totalPages]="totalPages"></app-paginator>
+  } @else {
+    <mat-spinner></mat-spinner>
+  }
+</div>

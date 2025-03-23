@@ -1,0 +1,53 @@
+<div class="custom-list-grid">
+  @if (!addList && !loading) {
+    <button class="w-25 mb-4 green-color" (click)="enableAddMode()">
+      <span class="align-middle">Crear lista</span> <mat-icon class="align-middle">add</mat-icon>
+    </button>
+    @if (customLists.length > 0) {
+      @for (customList of customLists; track customList.id) {
+        <app-custom-list-lists
+          [customList]="customList"
+          (deleteList)="openDialog($event)"
+        ></app-custom-list-lists>
+      }
+    } @else {
+      <h2>De momento no hay listas disponibles</h2>
+    }
+  } @else if (!addList && loading) {
+    <mat-spinner></mat-spinner>
+  } @else {
+    <div class="d-flex flex-column">
+      <label>Nombre</label>
+      <input class="w-50 mt-2" [(ngModel)]="listName" />
+    </div>
+
+    <div class="d-flex flex-column">
+      <label> Videojuegos</label>
+      <button (click)="openDialogShowVideogames()" class="w-50 mt-2">
+        <span class="align-middle">Añadir</span> <mat-icon class="align-middle">add</mat-icon>
+      </button>
+
+      <div class="row">
+        @for (videogame of tagListVideogame; track videogame.id) {
+          <div class="col-3 mt-1">
+            <app-tag
+              [valor]="videogame.titulo"
+              (deleteEvent)="deleteVideogameTag($event)"
+            ></app-tag>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (showErrorMessage) {
+      <span class="text-danger"
+        >Debes incluir el nombre de la lista y los videojuegos asociados</span
+      >
+    }
+
+    <div class="text-end">
+      <button type="button" (click)="disableAddMode()" class="me-3 cancel-button">Cancelar</button>
+      <button class="accept-button" (click)="addCustomList()">Aceptar</button>
+    </div>
+  }
+</div>

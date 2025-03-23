@@ -1,13 +1,37 @@
 <div class="videogame-grid">
   <div class="videogame-detail-container">
-    <a [routerLink]="[previousPageTarget]" class="previous-link"><mat-icon>arrow_back</mat-icon></a>
+    <button (click)="goBack()" class="previous-link text-black">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
     <div class="videogame-header align-items-center gap-3">
       <div class="videogame-image">
         <img src="{{ videogame.imagen }}" />
         <div class="videogames-button-actions">
-          <button><mat-icon>watch_later</mat-icon></button>
-          <button><mat-icon>sports_esports</mat-icon></button>
-          <button><mat-icon>thumb_up</mat-icon></button>
+          <button
+            data-toggle="tooltip"
+            data-placement="right"
+            [attr.title]="
+              wishListTag ? 'Eliminar de la lista de deseos' : 'Añadir a la lista de deseos'
+            "
+            [ngClass]="{ 'black-button': wishListTag }"
+            (click)="wishListTag ? deleteVideogameWishList() : addVideogameWishList()"
+          >
+            <mat-icon>watch_later</mat-icon>
+          </button>
+          <button
+            data-toggle="tooltip"
+            data-placement="right"
+            [attr.title]="
+              playedListTag ? 'Eliminar de la lista de jugados' : 'Añadir a la lista de jugados'
+            "
+            [ngClass]="{ 'black-button': playedListTag }"
+            (click)="playedListTag ? deleteVideogamePlayedList() : addVideogamePlayedList()"
+          >
+            <mat-icon>sports_esports</mat-icon>
+          </button>
+          <button data-toggle="tooltip" data-placement="right" title="Valorar videojuego">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
         </div>
       </div>
       <p>{{ videogame.titulo }}</p>

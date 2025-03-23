@@ -15,7 +15,6 @@ import { routes } from './app.routes';
 import { MatListModule } from '@angular/material/list';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
-
 @NgModule({
   declarations: [AppComponent, LoginPageComponent, PrincipalPageComponent, NavBarComponent],
   imports: [
@@ -27,6 +26,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     RouterModule.forRoot(routes),
     CommonModule,
     MatListModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
