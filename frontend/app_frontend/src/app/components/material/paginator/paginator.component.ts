@@ -50,7 +50,6 @@ export class PaginatorComponent {
   }
 
   nextPage() {
-    console.log(this.currentPage, this.totalPages);
     if (this.currentPage < this.totalPages) {
       this.goToPage(this.currentPage + 1);
     }

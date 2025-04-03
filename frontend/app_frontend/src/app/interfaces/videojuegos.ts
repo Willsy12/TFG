@@ -9,3 +9,15 @@ export interface Videojuegos {
   genero: Genero;
   anoLanzamiento: number;
 }
+
+export interface CustomList {
+  id: string;
+  nombre: string;
+  idUsuario: string;
+}
+
+export interface WishList {
+  id: string;
+  videojuego: Videojuegos;
+  isPlayedList: boolean;
+}

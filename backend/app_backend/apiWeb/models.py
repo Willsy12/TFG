@@ -29,3 +29,22 @@ class Videogame(models.Model):
     desarrolladora = models.CharField(help_text='Desarrolladora')
     imagen = models.CharField(help_text='Portada del videojuego')
     resumen = models.CharField(help_text='Sinopsis del videojuego')
+
+    def __str__(self):
+        return self.título
+
+class CustomList(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    nombre = models.CharField(help_text='Nombre de la lista personalizada')
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class ElementList(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    idLista = models.ForeignKey(CustomList, on_delete=models.CASCADE)
+    idVideojuego = models.ForeignKey(Videogame, on_delete=models.CASCADE)
+
+class WishList(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    idVideojuego = models.ForeignKey(Videogame, on_delete=models.CASCADE)
+    isPlayedList = models.BooleanField(default=False)

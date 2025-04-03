@@ -59,7 +59,6 @@ export class VideogameFilterComponent implements OnInit {
       añoLanzamiento: '',
       titulo: '',
     });
-    console.log(this.filterVideogameForm.value);
     this.clearVideogames.emit();
   }
 }

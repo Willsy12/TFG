@@ -1,25 +1,23 @@
 import { HttpClient, HttpContextToken, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VideojuegosFilter } from '../interfaces/videojuegos-filter';
-import { Videojuegos } from '../interfaces/videojuegos';
-import { map, Observable } from 'rxjs';
+import { CustomList, Videojuegos, WishList } from '../interfaces/videojuegos';
+import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
   private readonly BASE_URL = 'http://127.0.0.1:8000/api/v1/';
-
+  private readonly HEADERS = new HttpHeaders().set(
+    'Authorization',
+    `Token ${localStorage.getItem('token')}`
+  );
   constructor(private http: HttpClient) {}
 
   searchVideogames(): Observable<Videojuegos[]> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
-
     return this.http
-      .get<Videojuegos[]>(`${this.BASE_URL}videojuegos/`, { headers })
+      .get<Videojuegos[]>(`${this.BASE_URL}videojuegos/`, { headers: this.HEADERS })
       .pipe(map((response) => this.MapResponseToVideogame(response)));
   }
 
@@ -42,14 +40,85 @@ export class SearchService {
       params = params.set('añoLanzamiento', filterVideogame.añoLanzamiento);
     }
 
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
-
     return this.http
-      .get<Videojuegos[]>(`${this.BASE_URL}videojuegos/`, { params, headers })
+      .get<Videojuegos[]>(`${this.BASE_URL}videojuegos/`, { params, headers: this.HEADERS })
       .pipe(map((response) => this.MapResponseToVideogame(response)));
+  }
+
+  searchVideogameDetail(id: string): Observable<Videojuegos> {
+    return this.http.get(`${this.BASE_URL}videojuegos/${id}/`, { headers: this.HEADERS }).pipe(
+      map((response: any) => ({
+        id: response.id,
+        resumen: response.resumen,
+        imagen: response.imagen,
+        genero: response.genero,
+        titulo: response.título,
+        desarrolladora: response.desarrolladora,
+        anoLanzamiento: response.añoLanzamiento,
+      }))
+    );
+  }
+
+  seachCustomList(): Observable<CustomList[]> {
+    return this.http
+      .get(`${this.BASE_URL}myLists/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToCustomList(response)));
+  }
+
+  searchCustomListDetails(id: string): Observable<CustomList> {
+    return this.http.get(`${this.BASE_URL}myLists/${id}/`, { headers: this.HEADERS }).pipe(
+      map((response: any) => ({
+        id: response.id,
+        idUsuario: response.idUsuario,
+        nombre: response.nombre,
+      }))
+    );
+  }
+
+  searchElementList(id: string): Observable<Videojuegos[]> {
+    return this.http
+      .get<
+        { idVideojuego: any }[]
+      >(`${this.BASE_URL}myLists/${id}/elements/`, { headers: this.HEADERS })
+      .pipe(
+        map((response) => response.map((item) => this.mapResponseToVideogame(item.idVideojuego)))
+      );
+  }
+
+  searchVideogameInWishList(): Observable<WishList[]> {
+    return this.http
+      .get<WishList[]>(`${this.BASE_URL}wishList/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToWishList(response)));
+  }
+
+  searchVideogameInPlayedList(): Observable<WishList[]> {
+    return this.http
+      .get<WishList[]>(`${this.BASE_URL}playedList/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToWishList(response)));
+  }
+
+  checkVideogameIsWishList(id: string): Observable<boolean> {
+    return this.http
+      .get<{ exists: boolean }>(`${this.BASE_URL}wishList/${id}/`, { headers: this.HEADERS })
+      .pipe(
+        map((response) => {
+          return response.exists;
+        })
+      );
+  }
+
+  checkVideogameIsPlayedList(id: string): Observable<boolean> {
+    return this.http
+      .get<{ exists: boolean }>(`${this.BASE_URL}playedList/${id}/`, { headers: this.HEADERS })
+      .pipe(map((response) => response.exists));
+  }
+
+  private MapResponseToWishList(data: any): WishList[] {
+    return data.map((wishList: any) => ({
+      id: wishList.id,
+      videojuego: this.mapResponseToVideogame(wishList.idVideojuego),
+      isPlayedList: wishList.isPlayedList,
+    }));
   }
 
   private MapResponseToVideogame(response: any): Videojuegos[] {
@@ -64,22 +133,25 @@ export class SearchService {
     }));
   }
 
-  searchVideogameDetail(id: string): Observable<Videojuegos> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
+  private mapResponseToVideogame(data: any): Videojuegos {
+    return {
+      id: data.id,
+      titulo: data.título, // Asegúrate de que coincida con el nombre de la API
+      resumen: data.resumen,
+      imagen: data.imagen,
+      desarrolladora: data.desarrolladora,
+      genero: data.genero,
+      anoLanzamiento: data.añoLanzamiento,
+    };
+  }
 
-    return this.http.get(`${this.BASE_URL}videojuegos/${id}/`, { headers }).pipe(
-      map((response: any) => ({
-        id: response.id,
-        resumen: response.resumen,
-        imagen: response.imagen,
-        genero: response.genero,
-        titulo: response.título,
-        desarrolladora: response.desarrolladora,
-        anoLanzamiento: response.añoLanzamiento,
-      }))
-    );
+  private MapResponseToCustomList(response: any): CustomList[] {
+    return response.map((customList: any) => {
+      return {
+        id: customList.id,
+        idUsuario: customList.idUsuario,
+        nombre: customList.nombre,
+      };
+    });
   }
 }

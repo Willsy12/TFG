@@ -4,12 +4,11 @@
       (filterVideogameEvent)="searchFilterVideogame($event)"
       (clearVideogames)="clearFilters($event)"
     ></app-videogame-filter>
-    @if (videogames.length > 0) {
-      <app-videogame-list [videogames]="videogames"></app-videogame-list>
+    @if (loading) {
+      <mat-spinner></mat-spinner>
     } @else {
-      <h1>Ningun videojuego encontrado</h1>
+      <app-videogame-list [videogames]="videogames"></app-videogame-list>
+      <app-paginator (pageChange)="nextPage($event)" [totalPages]="totalPages"></app-paginator>
     }
-
-    <app-paginator (pageChange)="nextPage($event)" [totalPages]="totalPages"></app-paginator>
   </div>
 </div>

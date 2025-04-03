@@ -24,5 +24,12 @@ urlpatterns = [
     path('api/v1/',include('djoser.urls.authtoken')),
     path(r'api/v1/login/', api.Login.as_view()),
     path('api/v1/videojuegos/', api.Videogames.as_view({'get':'list'})),
-    path(r'api/v1/videojuegos/<str:pk>/', api.VideogameDetail.as_view({'get': 'retrieve'}))
+    path(r'api/v1/videojuegos/<str:pk>/', api.VideogameDetail.as_view({'get': 'retrieve'})),
+    path(r'api/v1/myLists/', api.CustomLists.as_view({'get': 'list', 'post':'create'})),
+    path(r'api/v1/myLists/<str:pk>/', api.CustomLists.as_view({'get': 'retrieve', 'delete': 'destroy'})),  
+    path(r'api/v1/myLists/<str:idLista>/elements/', api.ElementLists.as_view({'get':'list', 'post': 'create'})),
+    path(r'api/v1/wishList/', api.WishLists.as_view({'get':'list', 'post':'create'})),
+    path(r'api/v1/wishList/<str:idVideojuego>/', api.WishLists.as_view({'delete': 'destroy', 'get': 'retrieve'})),
+    path(r'api/v1/playedList/', api.PlayedLists.as_view({'get':'list', 'post':'create'})),
+    path(r'api/v1/playedList/<str:idVideojuego>/', api.PlayedLists.as_view({'delete': 'destroy', 'get': 'retrieve'}))
 ]

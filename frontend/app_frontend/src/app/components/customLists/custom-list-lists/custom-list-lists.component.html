@@ -1,0 +1,11 @@
+<div class="d-flex flex-row gap-5">
+  <a [routerLink]="['/Inicio/Mis-Listas/detail', customList.id]" class="custom-list-name">
+    {{ customList.nombre }}</a
+  >
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon class="align-middle">more_horiz</mat-icon>
+  </button>
+  <mat-menu class="mt-2" #menu="matMenu">
+    <button (click)="deleteListEvent()" mat-menu-item>Eliminar <mat-icon>delete</mat-icon></button>
+  </mat-menu>
+</div>
