@@ -48,3 +48,10 @@ class WishList(models.Model):
     idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
     idVideojuego = models.ForeignKey(Videogame, on_delete=models.CASCADE)
     isPlayedList = models.BooleanField(default=False)
+
+class Rating(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    idVideojuego = models.ForeignKey(Videogame, on_delete=models.CASCADE)
+    estrellas = models.DecimalField(default=0.5, decimal_places=1, max_digits=3)
+    comentario = models.CharField(default='')
