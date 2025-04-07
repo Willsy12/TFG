@@ -64,4 +64,12 @@ export class UpdateService {
       .delete(`${this.BASE_URL}playedList/${idVideojuego}/`, { headers: this.HEADERS })
       .pipe(map(() => true));
   }
+
+  addVideogameRate(idVideojuego: string, comentario: string, estrellas: number) {
+    const request = { idVideojuego: idVideojuego, comentario: comentario, estrellas: estrellas };
+
+    return this.http
+      .post(`${this.BASE_URL}ratings/`, request, { headers: this.HEADERS })
+      .pipe(map(() => true));
+  }
 }

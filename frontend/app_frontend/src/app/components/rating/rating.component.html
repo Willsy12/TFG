@@ -1,0 +1,50 @@
+<div class="d-flex align-items-center justify-content-center mb-3 gap-3">
+  <h2 class="text-center m-0">Valoracion media</h2>
+  <p-rating
+    [(ngModel)]="averageRatings"
+    [readonly]="true"
+    [style.pointer-events]="'none'"
+  ></p-rating>
+</div>
+<div class="d-flex flex-column justify-content-center">
+  <h2 class="text-center">Comentarios</h2>
+  <div class="d-flex flex-column">
+    @if (userRatings.length > 0) {
+      <h3 class="text-start">Mis Comentarios</h3>
+      <div class="ratings-container">
+        @for (rating of userRatings; track rating.id) {
+          <div class="d-flex flex-column">
+            <div class="d-flex gap-3">
+              {{ rating.usuario.username }}
+              <p-rating
+                [(ngModel)]="rating.estrellas"
+                [readonly]="true"
+                [style.pointer-events]="'none'"
+              ></p-rating>
+            </div>
+            @if (rating.comentario.length > 0) {
+              <label class="text-start">Comentario: {{ rating.comentario }}</label>
+            }
+          </div>
+        }
+      </div>
+    }
+    <div class="ratings-container">
+      @for (rating of ratings; track rating.id) {
+        <div class="d-flex flex-column">
+          <div class="d-flex gap-3">
+            {{ rating.usuario.username }}
+            <p-rating
+              [(ngModel)]="rating.estrellas"
+              [readonly]="true"
+              [style.pointer-events]="'none'"
+            ></p-rating>
+          </div>
+          @if (rating.comentario.length > 0) {
+            <label class="text-start">Comentario: {{ rating.comentario }}</label>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

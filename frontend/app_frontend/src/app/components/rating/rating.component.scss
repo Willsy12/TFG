@@ -1,0 +1,8 @@
+.ratings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 4px;
+  overflow-y: auto;
+  max-height: 750px;
+}

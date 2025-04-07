@@ -1,18 +1,22 @@
 .app-nav {
   background-color: #333;
-  width: 15rem;
   color: #fff;
-  height: 100%; /* Ocupará la altura total del contenedor padre */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
 }
-
 .app-nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex; /* Cambia la disposición a horizontal */
+  justify-content: space-around; /* Espacia los elementos horizontalmente */
+  align-items: center; /* Alinea los elementos verticalmente */
 }
 
 .app-nav li {
   padding: 15px 20px;
+  transition: background-color 0.3s ease; /* Suaviza el efecto de hover */
 
   a {
     display: flex;
@@ -21,15 +25,20 @@
     color: inherit;
     gap: 1rem;
   }
+
   button {
     background-color: transparent;
     color: inherit;
+    border: none; /* Elimina el borde del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   }
 }
 
 .app-nav li:hover {
-  background-color: #444;
+  background-color: #444; /* Mantén el efecto de hover */
 }
+
 .active-link {
-  background-color: #231515;
+  background-color: #231515; /* Mantén el estilo del enlace activo */
+  font-weight: bold; /* Opcional: resalta el enlace activo */
 }
