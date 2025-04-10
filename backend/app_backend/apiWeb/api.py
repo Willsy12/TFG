@@ -1,13 +1,14 @@
 from djoser.views import (TokenCreateView, UserViewSet)
 from djoser.conf import settings
 from rest_framework.response import Response
-from apiWeb.models import CustomList, ElementList, Rating, User, Videogame, WishList
+from apiWeb.models import CustomList, ElementList, Friendship, Rating, User, Videogame, WishList
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import viewsets, filters, status
-from apiWeb.serializers import CustomListSerializer, ElementListSerializer, RatingSerializer, VideogameSerializer, WishListSerializer
+from apiWeb.serializers import CustomListSerializer, ElementListSerializer, FriendshipSerializer, RatingSerializer, UserCreateSerializer, VideogameSerializer, WishListSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import NotFound
+from django.db.models import Q
 
 class Login(TokenCreateView):
     def _action(self, serializer):
@@ -196,7 +197,6 @@ class PlayedLists(viewsets.ModelViewSet):
             wishList.delete()
             return Response({"detail": "Se ha eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
         except Exception as e :
-            print(e)
             raise NotFound("No se encontro el videojuego asociado a la lista")
     
     def retrieve(self, request, idVideojuego=None):
@@ -237,3 +237,51 @@ class Ratings(viewsets.ModelViewSet):
     def get_queryset(self):
         idVideojuego = self.kwargs.get('idVideojuego')
         return Rating.objects.filter(idVideojuego=idVideojuego)
+    
+class FriendShips(viewsets.ModelViewSet):
+    serializer_class = FriendshipSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        friendships = Friendship.objects.filter(Q(idUsuario1=user) | Q(idUsuario2=user))
+        return friendships
+
+    def create(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            iduser2 = request.data.get('idUsuario')
+
+            user2 = User.objects.get(id=iduser2)
+
+            currentsFriendships = Friendship.objects.filter(
+                Q(idUsuario1=user, idUsuario2=user2) | Q(idUsuario1=user2, idUsuario2=user), estado=Friendship.Status.ACEPTADO)
+            
+            if not currentsFriendships.exists():
+                friendship = Friendship.objects.filter(
+                    Q(idUsuario1=user, idUsuario2=user2) | Q(idUsuario1=user2, idUsuario2=user), estado=Friendship.Status.PENDIENTE)
+                
+                if friendship.exists():
+                    estado = request.data.get('estado')
+                    friendship.update(estado=estado)
+                    return Response({'detail': "Se ha actualizado el estado de la amistad"}, status.HTTP_202_ACCEPTED)
+                else:
+                    friendShip = Friendship.objects.create(idUsuario1=user, idUsuario2=user2, estado=Friendship.Status.PENDIENTE)
+                    serializer = FriendshipSerializer(friendShip)
+                    return Response(serializer.data, status.HTTP_201_CREATED)
+            
+            else: 
+                return Response({'detail': "Ya existe amistad con este usuario"}, status.HTTP_304_NOT_MODIFIED)
+        except Exception as e:
+            return Response({'detail':"Se ha producido un error al crear/modificar la amistad"}, status.HTTP_400_BAD_REQUEST)
+
+class UserList(viewsets.ModelViewSet):
+    serializer_class = UserCreateSerializer
+    def get_queryset(self):
+        username = self.request.query_params.get('username', None)
+        
+        queryset = User.objects.filter(is_superuser=False)
+        
+        if username:
+            queryset = queryset.filter(username__icontains=username)
+        
+        return queryset

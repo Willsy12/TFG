@@ -55,3 +55,14 @@ class Rating(models.Model):
     idVideojuego = models.ForeignKey(Videogame, on_delete=models.CASCADE)
     estrellas = models.DecimalField(default=0.5, decimal_places=1, max_digits=3)
     comentario = models.CharField(default='')
+
+class Friendship(models.Model):
+    class Status(models.IntegerChoices):
+        ACEPTADO = 0, 'Aceptado'
+        RECHAZADO = 1, 'Rechazado'
+        PENDIENTE = 2, 'Pendiente'
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    idUsuario1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendships_initiated')
+    idUsuario2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendships_received')
+    estado = models.IntegerField(choices=Status.choices, default=Status.PENDIENTE)
