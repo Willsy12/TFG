@@ -6,6 +6,7 @@
   background-color: #d5d5d5;
   padding: 20px;
   border-radius: 0px;
+  flex: 1;
 }
 
 .filter-grid {
@@ -43,3 +44,14 @@
   transform: scale(1.05);
 }
 
+.rate-videogame-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.text-rate {
+  border-radius: 6px;
+  outline: none;
+  padding: 5px;
+}

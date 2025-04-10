@@ -1,11 +1,11 @@
 from djoser.views import (TokenCreateView, UserViewSet)
 from djoser.conf import settings
 from rest_framework.response import Response
-from apiWeb.models import CustomList, ElementList, User, Videogame, WishList
+from apiWeb.models import CustomList, ElementList, Rating, User, Videogame, WishList
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import viewsets, filters, status
-from apiWeb.serializers import CustomListSerializer, ElementListSerializer, VideogameSerializer, WishListSerializer
+from apiWeb.serializers import CustomListSerializer, ElementListSerializer, RatingSerializer, VideogameSerializer, WishListSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import NotFound
 
@@ -211,3 +211,29 @@ class PlayedLists(viewsets.ModelViewSet):
         
         except Videogame.DoesNotExist:
             return Response({'exists': False}, status=status.HTTP_200_OK)
+
+class Ratings(viewsets.ModelViewSet):
+    serializer_class = RatingSerializer
+
+    def create(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            idVideojuego = request.data.get('idVideojuego')
+            estrellas = request.data.get('estrellas')
+            comentario = request.data.get('comentario')
+
+            videogame = Videogame.objects.get(id=idVideojuego)
+
+            rating = Rating.objects.create(
+                idUsuario=user, idVideojuego=videogame, comentario=comentario, estrellas=estrellas)
+            
+            serializer = RatingSerializer(rating)
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        
+        except Videogame.DoesNotExist:
+            return Response({'detail': 'No se encontro el videojuego'}, status=status.HTTP_404_NOT_FOUND)
+            
+
+    def get_queryset(self):
+        idVideojuego = self.kwargs.get('idVideojuego')
+        return Rating.objects.filter(idVideojuego=idVideojuego)

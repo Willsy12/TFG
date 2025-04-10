@@ -5,7 +5,11 @@
     </button>
     <div class="videogame-header align-items-center gap-3">
       <div class="videogame-image">
-        <img src="{{ videogame.imagen }}" />
+        @if (loading) {
+          <mat-spinner></mat-spinner>
+        } @else {
+          <img src="{{ videogame.imagen }}" />
+        }
         <div class="videogames-button-actions">
           <button
             data-toggle="tooltip"
@@ -29,17 +33,22 @@
           >
             <mat-icon>sports_esports</mat-icon>
           </button>
-          <button data-toggle="tooltip" data-placement="right" title="Valorar videojuego">
+          <button
+            (click)="rateVideogame()"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Valorar videojuego"
+          >
             <mat-icon>thumb_up</mat-icon>
           </button>
         </div>
       </div>
-      <p>{{ videogame.titulo }}</p>
+      <h3>{{ videogame.titulo }}</h3>
     </div>
     <div class="text-center">
       <div class="videogame-properties">
         <div class="videogame-values">
-          <h3>Desarrollador por</h3>
+          <h3>Desarrollado por</h3>
           <p>{{ videogame.desarrolladora }}</p>
         </div>
         <div class="videogame-values">
@@ -55,6 +64,13 @@
         <h3>Sinopsis</h3>
         <p>{{ videogame.resumen }}</p>
       </div>
+      @if (loading) {
+        <mat-spinner></mat-spinner>
+      } @else {
+        @if (ratings.length > 0) {
+          <app-rating [ratings]="ratings" [averageRatings]="averageRate"></app-rating>
+        }
+      }
     </div>
   </div>
 </div>

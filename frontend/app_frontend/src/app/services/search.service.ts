@@ -1,7 +1,7 @@
 import { HttpClient, HttpContextToken, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VideojuegosFilter } from '../interfaces/videojuegos-filter';
-import { CustomList, Videojuegos, WishList } from '../interfaces/videojuegos';
+import { CustomList, Rating, User, Videojuegos, WishList } from '../interfaces/videojuegos';
 import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -113,6 +113,30 @@ export class SearchService {
       .pipe(map((response) => response.exists));
   }
 
+  searchVideogameRating(id: string): Observable<Rating[]> {
+    return this.http
+      .get<Rating[]>(`${this.BASE_URL}ratings/${id}/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToRating(response)));
+  }
+
+  private MapResponseToRating(response: any): Rating[] {
+    return response.map((rating: any) => ({
+      id: rating.id,
+      videogame: this.mapResponseToVideogame(rating.idVideojuego),
+      comentario: rating.comentario,
+      estrellas: rating.estrellas,
+      usuario: this.mapResponseToUser(rating.idUsuario),
+    }));
+  }
+
+  private mapResponseToUser(user: any): User {
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    };
+  }
+
   private MapResponseToWishList(data: any): WishList[] {
     return data.map((wishList: any) => ({
       id: wishList.id,
@@ -136,7 +160,7 @@ export class SearchService {
   private mapResponseToVideogame(data: any): Videojuegos {
     return {
       id: data.id,
-      titulo: data.título, // Asegúrate de que coincida con el nombre de la API
+      titulo: data.título,
       resumen: data.resumen,
       imagen: data.imagen,
       desarrolladora: data.desarrolladora,

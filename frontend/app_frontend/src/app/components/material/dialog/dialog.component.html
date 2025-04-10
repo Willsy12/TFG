@@ -26,5 +26,21 @@
       <button class="cancel-button" mat-button (click)="closeDialog()">No</button>
       <button class="accept-button" mat-button (click)="logout()">Si</button>
     </div>
+  } @else if (data.method === 'rateVideogame') {
+    <div class="rate-videogame-container">
+      <label mat-dialog-content>Indica la puntuación</label>
+      <p-rating [(ngModel)]="value"></p-rating>
+      <label class="mt-2" mat-dialog-content>Indica un comentario (opcional)</label>
+      <textarea class="mt-2 text-rate" [(ngModel)]="comment"></textarea>
+
+      @if (showErrorMessage) {
+        <span class="text-danger mt-2">Indica la puntuación</span>
+      }
+
+      <div mat-dialog-actions class="d-flex mt-4 justify-content-between gap-5">
+        <button class="cancel-button w-100" mat-button (click)="closeDialog()">Cancelar</button>
+        <button class="accept-button w-100" mat-button (click)="rate()">Valorar</button>
+      </div>
+    </div>
   }
 </div>

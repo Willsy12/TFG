@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
-from apiWeb.models import CustomList, ElementList, User, Videogame, WishList
+from apiWeb.models import CustomList, ElementList, Rating, User, Videogame, WishList
 import uuid
 
 TEST_USERNAME = 'Test_username'
@@ -302,3 +302,28 @@ class WishListAndPlayedListTest(BaseTestCase):
         item = response.data
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
         self.assertEqual(item['detail'], "El videojuego ya esta añadido a la playedList")
+
+class RatingTest(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+        rating = Rating.objects.create(
+            id=UUID, idVideojuego=self.test_videogame_1, comentario='Ejemplo', idUsuario=self.test_user, estrellas=3.5)
+    
+    def test_000_videogame_ratings(self):
+        response = self.client.get(f'{BASE_URL}ratings/{self.test_videogame_1.id}/', 
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        items = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(items), 1)
+        for item in items:
+            self.assertEqual(item['id'], UUID)
+            self.assertEqual(item['estrellas'], '3.5')
+            self.assertEqual(item['comentario'], 'Ejemplo')
+    
+    def test_001_create_videogame_rating(self):
+        request = {'idVideojuego' : self.test_videogame_1.id.__str__(), 
+            'comentario': '10/11', 'estrellas': 3.4 }
+        
+        response = self.client.post(f'{BASE_URL}ratings/', data=request, HTTP_AUTHORIZATION = self.auth_header)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

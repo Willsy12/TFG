@@ -5,11 +5,13 @@ import { Videojuegos } from '../../../interfaces/videojuegos';
 import { SearchService } from '../../../services/search.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VideojuegosFilter } from '../../../interfaces/videojuegos-filter';
 import { VideogameFilterComponent } from '../../Videogame/videogame-filter/videogame-filter.component';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
+import { RatingModule } from 'primeng/rating';
+import { UpdateService } from '../../../services/update.service';
 
 @Component({
   selector: 'app-dialog',
@@ -19,6 +21,9 @@ import { Router, RouterModule } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     VideogameFilterComponent,
+    RatingModule,
+    CommonModule,
+    FormsModule,
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
@@ -28,7 +33,9 @@ export class DialogComponent implements OnInit {
   pagedVideogames: Videojuegos[][] = [];
   totalVideogames: Videojuegos[] = [];
   filterVideogameForm: FormGroup;
-
+  value!: number;
+  comment: string = '';
+  showErrorMessage: boolean = false;
   totalPages: number = 0;
   maxNumberVideogames: number = 3;
   currentPage: number = 0;
@@ -37,6 +44,7 @@ export class DialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private searchService: SearchService,
     private authService: AuthService,
+    private updateService: UpdateService,
     private router: Router
   ) {}
 
@@ -101,5 +109,18 @@ export class DialogComponent implements OnInit {
         }
       },
     });
+  }
+
+  rate() {
+    const videogame = this.data.videogame;
+    if (this.value != undefined) {
+      this.updateService.addVideogameRate(videogame.id, this.comment, this.value).subscribe({
+        next: (result: boolean) => {
+          this.dialogRef.close(result);
+        },
+      });
+    } else {
+      this.showErrorMessage = true;
+    }
   }
 }

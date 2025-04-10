@@ -10,6 +10,12 @@ export interface Videojuegos {
   anoLanzamiento: number;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
 export interface CustomList {
   id: string;
   nombre: string;
@@ -20,4 +26,12 @@ export interface WishList {
   id: string;
   videojuego: Videojuegos;
   isPlayedList: boolean;
+}
+
+export interface Rating {
+  id: string;
+  videojuego: Videojuegos;
+  comentario: string;
+  estrellas: number;
+  usuario: User;
 }

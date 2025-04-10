@@ -2,12 +2,12 @@ from chess import Status
 from django.contrib import admin
 from django.forms import ValidationError
 from requests import Response
-from .models import CustomList, ElementList, Videogame, WishList
+from .models import CustomList, ElementList, Rating, Videogame, WishList
 from rest_framework import viewsets, filters, status
 
 # Register your models here.
 class VideogameAdmin(admin.ModelAdmin):
-    list_display = ('título', 'genero', 'añoLanzamiento', 'desarrolladora')
+    list_display = ('título', 'genero', 'añoLanzamiento', 'desarrolladora', 'id')
     search_fields = ('título', 'desarrolladora')
     list_filter = ('genero', 'añoLanzamiento')
     fieldsets = (
@@ -45,7 +45,16 @@ class WishListAdmin(admin.ModelAdmin):
             raise ValidationError("El videojuego ya está añadido a la wishList para este usuario.")
         super().save_model(request, obj, form, change)
 
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('idUsuario', 'idVideojuego', 'estrellas', 'comentario')
+    fieldsets = (
+        (None , {
+            'fields': ('idUsuario', 'idVideojuego', 'estrellas', 'comentario')
+        }),
+    )
+
 admin.site.register(Videogame, VideogameAdmin)
 admin.site.register(CustomList, CustomListAdmin)
 admin.site.register(ElementList, ElementListAdmin)
 admin.site.register(WishList,WishListAdmin)
+admin.site.register(Rating,RatingAdmin)

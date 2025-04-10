@@ -1,6 +1,6 @@
 from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
 from rest_framework import serializers
-from apiWeb.models import CustomList, ElementList, User, Videogame, WishList
+from apiWeb.models import CustomList, ElementList, Rating, User, Videogame, WishList
 
 class UserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
@@ -24,7 +24,15 @@ class ElementListSerializer(serializers.ModelSerializer):
         depth = 1
 
 class WishListSerializer(serializers.ModelSerializer):
+    idUsuario = UserCreateSerializer()
     class Meta():
         model = WishList
+        fields = '__all__'
+        depth = 1
+
+class RatingSerializer(serializers.ModelSerializer):
+    idUsuario = UserCreateSerializer()
+    class Meta():
+        model = Rating
         fields = '__all__'
         depth = 1
