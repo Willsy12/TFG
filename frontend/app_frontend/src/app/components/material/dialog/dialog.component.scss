@@ -55,3 +55,14 @@
   outline: none;
   padding: 5px;
 }
+.user-list {
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}

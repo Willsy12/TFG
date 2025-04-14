@@ -6,13 +6,13 @@ describe('MainPage', () => {
   });
 
   it('displayCustomListView', () => {
-    cy.visit('Inicio/Mis-Listas');
+    cy.visit('/Mis-Listas');
     cy.wait(2000);
     cy.get('button.green-color').contains('Crear lista');
   });
 
   it('displayFormCreateCustomList', () => {
-    cy.visit('Inicio/Mis-Listas');
+    cy.visit('/Mis-Listas');
     cy.wait(2000);
     cy.get('button.green-color').contains('Crear lista').click();
     cy.get('div.text-end').should('exist');

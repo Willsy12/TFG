@@ -1,8 +1,15 @@
 import { HttpClient, HttpContextToken, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VideojuegosFilter } from '../interfaces/videojuegos-filter';
-import { CustomList, Rating, User, Videojuegos, WishList } from '../interfaces/videojuegos';
-import { map, Observable, tap } from 'rxjs';
+import {
+  CustomList,
+  Friendship,
+  Rating,
+  User,
+  Videojuegos,
+  WishList,
+} from '../interfaces/videojuegos';
+import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -117,6 +124,35 @@ export class SearchService {
     return this.http
       .get<Rating[]>(`${this.BASE_URL}ratings/${id}/`, { headers: this.HEADERS })
       .pipe(map((response) => this.MapResponseToRating(response)));
+  }
+
+  searchFriendShips(): Observable<Friendship[]> {
+    return this.http
+      .get<Friendship[]>(`${this.BASE_URL}friendships/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToFriendship(response)));
+  }
+
+  searchUsers(username: string | null): Observable<User[]> {
+    let params = new HttpParams();
+    if (username) {
+      params = params.set('username', username);
+      return this.http
+        .get<User[]>(`${this.BASE_URL}allUsers/`, { headers: this.HEADERS, params })
+        .pipe(
+          map((response: User[]) => response.map((user: User) => this.mapResponseToUser(user)))
+        );
+    } else {
+      return of([]);
+    }
+  }
+
+  private MapResponseToFriendship(response: any): Friendship[] {
+    return response.map((friendship: any) => ({
+      id: friendship.id,
+      usuario1: this.mapResponseToUser(friendship.idUsuario1),
+      usuario2: this.mapResponseToUser(friendship.idUsuario2),
+      estado: friendship.estado,
+    }));
   }
 
   private MapResponseToRating(response: any): Rating[] {

@@ -1,0 +1,28 @@
+@for (friend of pendingFriendship; track friend.id) {
+  <div class="d-flex flex-column w-100 justify-content-center p-3">
+    <div class="d-flex justify-content-between gap-lg-3">
+      <div class="d-flex gap-2">
+        <mat-icon>person</mat-icon>
+        @if (friend.usuario1.id != idUsuario) {
+          <label>{{ friend.usuario1.username }}</label>
+        } @else if (friend.usuario2.id != idUsuario) {
+          <label>{{ friend.usuario2.username }}</label>
+        }
+      </div>
+      <div class="d-flex gap-lg-3">
+        <button
+          class="d-flex align-items-center cancel-button w-50"
+          (click)="updateFriendRequest(friend, 1)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          class="d-flex align-items-center accept-button w-50"
+          (click)="updateFriendRequest(friend, 0)"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+}

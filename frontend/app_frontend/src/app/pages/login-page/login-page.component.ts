@@ -45,7 +45,7 @@ export class LoginPageComponent implements OnInit {
       next: (response: any) => {
         localStorage.setItem('userId', response.user_id);
         localStorage.setItem('token', response.auth_token);
-        this.router.navigate(['/Inicio']);
+        this.router.navigate(['/']);
       },
       error: (response) => {
         Object.entries(response.error).forEach(([key, errors]) => {

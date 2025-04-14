@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { Videojuegos } from '../../../interfaces/videojuegos';
+import { User, Videojuegos } from '../../../interfaces/videojuegos';
 import { SearchService } from '../../../services/search.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { RatingModule } from 'primeng/rating';
 import { UpdateService } from '../../../services/update.service';
+import { Estado } from '../../../interfaces/genero.enum';
 
 @Component({
   selector: 'app-dialog',
@@ -35,10 +36,13 @@ export class DialogComponent implements OnInit {
   filterVideogameForm: FormGroup;
   value!: number;
   comment: string = '';
+  userName: string | null;
   showErrorMessage: boolean = false;
   totalPages: number = 0;
   maxNumberVideogames: number = 3;
   currentPage: number = 0;
+  userList: User[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -122,5 +126,21 @@ export class DialogComponent implements OnInit {
     } else {
       this.showErrorMessage = true;
     }
+  }
+
+  searchUser() {
+    this.searchService.searchUsers(this.userName).subscribe({
+      next: (result: User[]) => {
+        this.userList = result.filter((u) => u.id != localStorage.getItem('userId'));
+      },
+    });
+  }
+
+  sendFriendRequest(id: string) {
+    this.updateService.addFriendRequest(id, null).subscribe({
+      next: (result: Estado) => {
+        this.dialogRef.close(result);
+      },
+    });
   }
 }

@@ -30,7 +30,6 @@ export class CustomListDetailComponent implements OnInit {
       )
       .subscribe({
         next: (id: string) => this.getCustomListDetail(id),
-        error: (err) => console.error(err),
       });
   }
 

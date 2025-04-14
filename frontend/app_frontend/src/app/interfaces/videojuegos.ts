@@ -1,4 +1,4 @@
-import { Genero } from './genero.enum';
+import { Estado, Genero } from './genero.enum';
 
 export interface Videojuegos {
   id: string;
@@ -34,4 +34,11 @@ export interface Rating {
   comentario: string;
   estrellas: number;
   usuario: User;
+}
+
+export interface Friendship {
+  id: string;
+  usuario1: User;
+  usuario2: User;
+  estado: Estado;
 }

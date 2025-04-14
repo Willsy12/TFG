@@ -1,0 +1,51 @@
+<div class="d-flex flex-column justify-content-center align-items-center friendship-container">
+  <div class="d-flex w-75 button-grid">
+    <button
+      class="w-100"
+      [ngClass]="{ 'new-color': !showPendingRequest }"
+      (click)="changeFunction(false)"
+    >
+      Amistades
+    </button>
+    <button
+      class="w-100"
+      [ngClass]="{ 'new-color': showPendingRequest }"
+      (click)="changeFunction(true)"
+    >
+      Solicitudes pendientes
+    </button>
+  </div>
+  @if (!showPendingRequest) {
+    <div class="d-flex flex-column w-75 align-items-center p-3">
+      <button
+        class="w-25 accept-button d-flex align-items-center justify-content-center gap-2"
+        (click)="addFriend()"
+      >
+        <mat-icon>people</mat-icon>
+        <span>Añadir amigo</span>
+      </button>
+      @for (friend of friendships; track friend.id) {
+        <div class="d-flex flex-column w-25">
+          <div class="d-flex mt-3">
+            <mat-icon>person</mat-icon>
+            @if (friend.usuario1.id != idUsuario) {
+              <label>{{ friend.usuario1.username }}</label>
+            } @else if (friend.usuario2.id != idUsuario) {
+              <label>{{ friend.usuario2.username }}</label>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    @if (pendingFriends.length > 0) {
+      <app-friendship-pending-list
+        [pendingFriendship]="pendingFriends"
+        [idUsuario]="idUsuario"
+        (isFriends)="updateFriends($event)"
+      ></app-friendship-pending-list>
+    } @else {
+      <h2 class="mt-3">No tiene solicitudes pendientes</h2>
+    }
+  }
+</div>

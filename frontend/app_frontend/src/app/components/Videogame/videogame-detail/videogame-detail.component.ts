@@ -50,7 +50,7 @@ export class VideogameDetailComponent implements OnInit {
         next: (id: string) => {
           this.loadVideogameDetail(id);
         },
-        error: (err) => console.error(err),
+        error: (err) => console.error('Error'),
       });
   }
 
