@@ -12,7 +12,7 @@ export class LoginAuthGuard implements CanActivate {
     if (!token) {
       return true;
     } else {
-      this.router.navigate(['/Inicio']);
+      this.router.navigate(['/']);
       return false;
     }
   }

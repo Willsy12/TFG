@@ -23,9 +23,7 @@ export class RatingComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
-    console.log(this.ratings);
     this.userRatings = this.ratings.filter((r) => r.usuario.id == userId);
-    console.log(this.userRatings, userId);
     this.ratings = this.ratings.filter((r) => !this.userRatings.includes(r));
   }
 }

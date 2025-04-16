@@ -1,5 +1,5 @@
 <div class="custom-list-grid">
-  <a href="Inicio/Mis-Listas/" class="previous-link"><mat-icon>arrow_back</mat-icon></a>
+  <a href="/Mis-Listas/" class="previous-link"><mat-icon>arrow_back</mat-icon></a>
   <div>
     <h3>Nombre</h3>
     <label>{{ customList.nombre }}</label>
@@ -8,7 +8,7 @@
     <h3>Videojuegos</h3>
     <div class="game-grid">
       @for (videogame of videogames; track videogame.id) {
-        <a [routerLink]="['/Inicio/detail', videogame.id]" class="game-card">
+        <a [routerLink]="['/detail', videogame.id]" class="game-card">
           <img src="{{ videogame.imagen }}" />
         </a>
       }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CustomList } from '../interfaces/videojuegos';
+import { Estado } from '../interfaces/genero.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +72,35 @@ export class UpdateService {
     return this.http
       .post(`${this.BASE_URL}ratings/`, request, { headers: this.HEADERS })
       .pipe(map(() => true));
+  }
+
+  addFriendRequest(id: string | null, estado: number | null): Observable<Estado> {
+    if (!id) {
+      throw new Error('id cannot be null');
+    }
+    let request: { idUsuario: string; estado?: number | null } = { idUsuario: id };
+
+    if (estado != null) {
+      request.estado = estado;
+    }
+
+    return this.http
+      .post(`${this.BASE_URL}friendships/`, request, { headers: this.HEADERS, observe: 'response' })
+      .pipe(
+        map((response) => {
+          if (response.status === 201) {
+            return Estado.PENDIENTE;
+          } else if (response.status === 202 && estado == 0) {
+            return Estado.ACEPTADO;
+          } else if (response.status === 202 && estado == 1) {
+            return Estado.RECHAZADO;
+          }
+          throw new Error('Unexpected response status');
+        }),
+        catchError((error) => {
+          console.error('Error al procesar la solicitud:', error);
+          return of(Estado.RECHAZADO);
+        })
+      );
   }
 }

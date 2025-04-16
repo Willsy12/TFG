@@ -9,6 +9,12 @@ export enum Genero {
   MUSICALES = 'MUS',
 }
 
+export enum Estado {
+  ACEPTADO = 0,
+  RECHAZADO = 1,
+  PENDIENTE = 2,
+}
+
 export const genreMap = {
   [Genero.ACCION]: 'Accion',
   [Genero.ARCADE]: 'Arcade',

@@ -49,6 +49,6 @@ describe('LoginPage', () => {
 
     cy.get('button[type="submit"]').click();
 
-    cy.url().should('include', '/Inicio');
+    cy.url().should('include', '/');
   });
 });

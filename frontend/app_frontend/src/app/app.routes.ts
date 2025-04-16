@@ -8,10 +8,11 @@ import { VideogameDetailComponent } from './components/Videogame/videogame-detai
 import { CustomListLayoutComponent } from './components/customLists/custom-list-layout/custom-list-layout.component';
 import { CustomListDetailComponent } from './components/customLists/custom-list-detail/custom-list-detail.component';
 import { WishListComponent } from './components/WishList/wish-list/wish-list.component';
+import { FriendshipListComponent } from './components/Friendship/friendship-list/friendship-list.component';
 
 export const routes: Routes = [
   {
-    path: 'Inicio',
+    path: '',
     component: PrincipalPageComponent,
     children: [
       { path: '', component: VideogameLayoutComponent },
@@ -20,9 +21,9 @@ export const routes: Routes = [
       { path: 'Mis-Listas/detail/:id', component: CustomListDetailComponent },
       { path: 'WishList', component: WishListComponent },
       { path: 'PlayedList', component: WishListComponent },
+      { path: 'Amistades', component: FriendshipListComponent },
     ],
     canActivate: [AuthGuard],
   },
   { path: 'Login', component: LoginPageComponent },
-  { path: '**', redirectTo: 'Login' },
 ];

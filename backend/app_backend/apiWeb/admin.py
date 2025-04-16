@@ -2,7 +2,7 @@ from chess import Status
 from django.contrib import admin
 from django.forms import ValidationError
 from requests import Response
-from .models import CustomList, ElementList, Rating, Videogame, WishList
+from .models import CustomList, ElementList, Friendship, Rating, Videogame, WishList
 from rest_framework import viewsets, filters, status
 
 # Register your models here.
@@ -53,8 +53,17 @@ class RatingAdmin(admin.ModelAdmin):
         }),
     )
 
+class FriendshipAdmin(admin.ModelAdmin):
+    list_display = ('idUsuario1', 'idUsuario2', 'estado')
+    fieldsets = (
+        (None,{
+            'fields' :('idUsuario1', 'idUsuario2', 'estado')
+        }),
+    )
+
 admin.site.register(Videogame, VideogameAdmin)
 admin.site.register(CustomList, CustomListAdmin)
 admin.site.register(ElementList, ElementListAdmin)
 admin.site.register(WishList,WishListAdmin)
 admin.site.register(Rating,RatingAdmin)
+admin.site.register(Friendship,FriendshipAdmin)

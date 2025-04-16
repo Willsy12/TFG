@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/',include('djoser.urls')),
     path('api/v1/',include('djoser.urls.authtoken')),
+    path('api/v1/allUsers/', api.UserList.as_view({'get':'list'})),
     path(r'api/v1/login/', api.Login.as_view()),
     path('api/v1/videojuegos/', api.Videogames.as_view({'get':'list'})),
     path(r'api/v1/videojuegos/<str:pk>/', api.VideogameDetail.as_view({'get': 'retrieve'})),
@@ -33,5 +34,6 @@ urlpatterns = [
     path(r'api/v1/playedList/', api.PlayedLists.as_view({'get':'list', 'post':'create'})),
     path(r'api/v1/playedList/<str:idVideojuego>/', api.PlayedLists.as_view({'delete': 'destroy', 'get': 'retrieve'})),
     path(r'api/v1/ratings/<str:idVideojuego>/', api.Ratings.as_view({'get': 'list'})),
-    path(r'api/v1/ratings/', api.Ratings.as_view({'post': 'create'}))
+    path(r'api/v1/ratings/', api.Ratings.as_view({'post': 'create'})),
+    path(r'api/v1/friendships/', api.FriendShips.as_view({'get':'list' , 'post': 'create'}))
 ]

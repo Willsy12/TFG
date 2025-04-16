@@ -6,7 +6,7 @@ describe('MainPage', () => {
   });
 
   it('showDisplayAllVideogames', () => {
-    cy.visit('Inicio');
+    cy.visit('/');
     cy.wait(2000);
 
     cy.get('form').should('be.visible');
@@ -16,7 +16,7 @@ describe('MainPage', () => {
   });
 
   it('showDisplayAllVideogamesWithAdvancedFilters', () => {
-    cy.visit('Inicio');
+    cy.visit('/');
     cy.wait(2000);
 
     cy.get('form').should('be.visible');
@@ -31,7 +31,7 @@ describe('MainPage', () => {
   });
 
   it('searchVideogameWithAdvancedFilter', () => {
-    cy.visit('Inicio');
+    cy.visit('/');
     cy.wait(2000);
 
     cy.get('form').should('be.visible');
@@ -51,7 +51,7 @@ describe('MainPage', () => {
   });
 
   it('displayNoneVideogame', () => {
-    cy.visit('Inicio');
+    cy.visit('/');
     cy.wait(2000);
 
     cy.get('form').should('be.visible');

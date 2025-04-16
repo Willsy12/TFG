@@ -42,5 +42,36 @@
         <button class="accept-button w-100" mat-button (click)="rate()">Valorar</button>
       </div>
     </div>
+  } @else if (data.method === 'addFriend') {
+    <div class="d-flex gap-3 w-100">
+      <input placeholder="Buscar..." class="w-75" [(ngModel)]="userName" />
+      <button class="green-color d-flex align-items-center" (click)="searchUser()">
+        <span>Buscar</span> <mat-icon>search</mat-icon>
+      </button>
+    </div>
+
+    @if (userList.length > 0) {
+      <h3 class="mt-4">Resultados de la busqueda</h3>
+      <div class="user-list w-100">
+        <ul>
+          @for (user of userList; track user.id) {
+            <li class="list-group-item mb-2">
+              <label class="d-flex align-items-center"
+                ><mat-icon>person</mat-icon> <label>{{ user.username }}</label></label
+              >
+              <button
+                class="green-color d-flex align-items-center gap-2"
+                (click)="sendFriendRequest(user.id)"
+              >
+                <span> Enviar solicitud</span>
+                <mat-icon>send</mat-icon>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    } @else {
+      <h3 class="mt-4">Sin resultados</h3>
+    }
   }
 </div>

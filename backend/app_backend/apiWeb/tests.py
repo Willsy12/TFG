@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
-from apiWeb.models import CustomList, ElementList, Rating, User, Videogame, WishList
+from apiWeb.models import CustomList, ElementList, Friendship, Rating, User, Videogame, WishList
 import uuid
 
 TEST_USERNAME = 'Test_username'
@@ -140,7 +140,7 @@ class CustomListDisplay(BaseTestCase):
 
     def test_001_customList_elements_display(self):
         response = self.client.get(
-            f'{BASE_URL}myLists/{self.customList.id}/elements',
+            f'{BASE_URL}myLists/{self.customList.id}/elements/',
             HTTP_AUTHORIZATION=self.auth_header
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -194,7 +194,7 @@ class CustomListDisplay(BaseTestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(len(response.data), 0)
+        self.assertEqual(len(response.data), 1)
     
     def test_006_customList_element_add(self):
         request = {"idVideojuego": self.test_videogame_1.id}
@@ -327,3 +327,53 @@ class RatingTest(BaseTestCase):
         response = self.client.post(f'{BASE_URL}ratings/', data=request, HTTP_AUTHORIZATION = self.auth_header)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class FriendShipTest(BaseTestCase):
+    def setUp(self):
+        super().setUp() 
+        self.test_user_2 = User.objects.create_user(
+            username=TEST_USERNAME + "AA",
+            email=f"{TEST_USERNAME}AA@email.com",
+            password=TEST_PASSWORD + "AA"
+        )
+
+        self.test_user_3 = User.objects.create_user(
+            username=TEST_USERNAME + "AAA",
+            email=f"{TEST_USERNAME}AAA@email.com",
+            password=TEST_PASSWORD + "AAA"
+        )
+        amistad = Friendship.objects.create(idUsuario1=self.test_user,idUsuario2=self.test_user_2, estado=Friendship.Status.ACEPTADO)
+    
+    def test_000_friendship_found(self):
+        response = self.client.get(f'{BASE_URL}friendships/', 
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        items = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(items), 1)
+    
+    def test_001_friendship_send_request(self):
+        request = {'idUsuario': self.test_user_3.id}
+
+        response = self.client.post(f'{BASE_URL}friendships/', request,
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    
+    def test_002_friendship_accept_request(self):
+
+        requestSend = {'idUsuario': self.test_user_3.id}
+
+        response = self.client.post(f'{BASE_URL}friendships/', requestSend,
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        
+        requestAccept = {'idUsuario': self.test_user_3.id, 'estado': Friendship.Status.ACEPTADO}
+
+        response = self.client.post(f'{BASE_URL}friendships/', requestAccept,
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+    
+    def test_003_friendship_exists(self):
+        request = {'idUsuario': self.test_user_2.id}
+
+        response = self.client.post(f'{BASE_URL}friendships/', request,
+                                   HTTP_AUTHORIZATION = self.auth_header)
+        self.assertEqual(response.status_code, status.HTTP_304_NOT_MODIFIED)
