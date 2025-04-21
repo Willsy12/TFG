@@ -9,6 +9,7 @@ import { CustomListLayoutComponent } from './components/customLists/custom-list-
 import { CustomListDetailComponent } from './components/customLists/custom-list-detail/custom-list-detail.component';
 import { WishListComponent } from './components/WishList/wish-list/wish-list.component';
 import { FriendshipListComponent } from './components/Friendship/friendship-list/friendship-list.component';
+import { ActivityComponent } from './components/activity/activity.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'WishList', component: WishListComponent },
       { path: 'PlayedList', component: WishListComponent },
       { path: 'Amistades', component: FriendshipListComponent },
+      { path: 'Actividad', component: ActivityComponent },
     ],
     canActivate: [AuthGuard],
   },

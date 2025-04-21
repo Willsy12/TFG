@@ -26,6 +26,7 @@ export interface WishList {
   id: string;
   videojuego: Videojuegos;
   isPlayedList: boolean;
+  idUsuario: User;
 }
 
 export interface Rating {

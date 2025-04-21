@@ -104,6 +104,12 @@ export class SearchService {
       .pipe(map((response) => this.MapResponseToWishList(response)));
   }
 
+  searchVideogameInList(): Observable<WishList[]> {
+    return this.http
+      .get<WishList[]>(`${this.BASE_URL}allWishList/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToWishList(response)));
+  }
+
   checkVideogameIsWishList(id: string): Observable<boolean> {
     return this.http
       .get<{ exists: boolean }>(`${this.BASE_URL}wishList/${id}/`, { headers: this.HEADERS })
@@ -123,6 +129,12 @@ export class SearchService {
   searchVideogameRating(id: string): Observable<Rating[]> {
     return this.http
       .get<Rating[]>(`${this.BASE_URL}ratings/${id}/`, { headers: this.HEADERS })
+      .pipe(map((response) => this.MapResponseToRating(response)));
+  }
+
+  searchAllVideogameRating(): Observable<Rating[]> {
+    return this.http
+      .get<Rating[]>(`${this.BASE_URL}allRatings/`, { headers: this.HEADERS })
       .pipe(map((response) => this.MapResponseToRating(response)));
   }
 
@@ -158,7 +170,7 @@ export class SearchService {
   private MapResponseToRating(response: any): Rating[] {
     return response.map((rating: any) => ({
       id: rating.id,
-      videogame: this.mapResponseToVideogame(rating.idVideojuego),
+      videojuego: this.mapResponseToVideogame(rating.idVideojuego),
       comentario: rating.comentario,
       estrellas: rating.estrellas,
       usuario: this.mapResponseToUser(rating.idUsuario),
@@ -178,6 +190,7 @@ export class SearchService {
       id: wishList.id,
       videojuego: this.mapResponseToVideogame(wishList.idVideojuego),
       isPlayedList: wishList.isPlayedList,
+      idUsuario: this.mapResponseToUser(wishList.idUsuario),
     }));
   }
 

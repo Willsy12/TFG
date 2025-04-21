@@ -33,8 +33,6 @@ describe('LoginPage', () => {
   });
 
   it('should display principal page on successful login', () => {
-    cy.deleteUsers();
-
     cy.get('input[formControlName="username"]').type(Cypress.env('username'));
     cy.get('input[formControlName="password"]').type(Cypress.env('password'));
     cy.get('input[formControlName="email"]').type(Cypress.env('email'));
