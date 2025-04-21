@@ -237,6 +237,18 @@ class Ratings(viewsets.ModelViewSet):
     def get_queryset(self):
         idVideojuego = self.kwargs.get('idVideojuego')
         return Rating.objects.filter(idVideojuego=idVideojuego)
+
+class AllRatings(viewsets.ModelViewSet):
+    serializer_class = RatingSerializer
+
+    def get_queryset(self):
+        return Rating.objects.all()
+
+class AllWishList(viewsets.ModelViewSet):
+    serializer_class = WishListSerializer
+
+    def get_queryset(self):
+            return WishList.objects.all()
     
 class FriendShips(viewsets.ModelViewSet):
     serializer_class = FriendshipSerializer

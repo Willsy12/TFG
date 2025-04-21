@@ -30,9 +30,11 @@ urlpatterns = [
     path(r'api/v1/myLists/<str:pk>/', api.CustomLists.as_view({'get': 'retrieve', 'delete': 'destroy'})),  
     path(r'api/v1/myLists/<str:idLista>/elements/', api.ElementLists.as_view({'get':'list', 'post': 'create'})),
     path(r'api/v1/wishList/', api.WishLists.as_view({'get':'list', 'post':'create'})),
+    path(r'api/v1/allWishList/', api.AllWishList.as_view({'get':'list'})),
     path(r'api/v1/wishList/<str:idVideojuego>/', api.WishLists.as_view({'delete': 'destroy', 'get': 'retrieve'})),
     path(r'api/v1/playedList/', api.PlayedLists.as_view({'get':'list', 'post':'create'})),
     path(r'api/v1/playedList/<str:idVideojuego>/', api.PlayedLists.as_view({'delete': 'destroy', 'get': 'retrieve'})),
+    path(r'api/v1/allRatings/', api.AllRatings.as_view({'get': 'list'})),
     path(r'api/v1/ratings/<str:idVideojuego>/', api.Ratings.as_view({'get': 'list'})),
     path(r'api/v1/ratings/', api.Ratings.as_view({'post': 'create'})),
     path(r'api/v1/friendships/', api.FriendShips.as_view({'get':'list' , 'post': 'create'}))

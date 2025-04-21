@@ -1,0 +1,54 @@
+<div class="container">
+  @if (!loading) {
+    @if (ratings.length > 0 || wishList.length > 0 || playedList.length > 0) {
+      @for (rating of ratings; track rating.id) {
+        <div class="d-flex flex-column gap-4 w-50">
+          <label class="d-flex flex-column">
+            <span class="d-flex gap-2"
+              ><mat-icon>person</mat-icon> {{ rating.usuario.username }} ha valorado
+              <a [routerLink]="['/detail', rating.videojuego.id]"
+                >'{{ rating.videojuego.titulo }}'</a
+              >
+              con
+              <p-rating
+                [(ngModel)]="rating.estrellas"
+                [readonly]="true"
+                [style.pointer-events]="'none'"
+              ></p-rating
+            ></span>
+
+            @if (rating.comentario != '') {
+              <span> Además ha añadido el siguiente comentario '{{ rating.comentario }}' </span>
+            }
+          </label>
+        </div>
+      }
+      @for (wish of wishList; track wish.id) {
+        <div class="d-flex flex-column gap-4 w-50">
+          <label class="d-flex flex-column">
+            <span class="d-flex gap-2"
+              ><mat-icon>person</mat-icon> {{ wish.idUsuario.username }} ha añadido
+              <a [routerLink]="['/detail', wish.videojuego.id]">'{{ wish.videojuego.titulo }}'</a> a
+              su wishList
+            </span>
+          </label>
+        </div>
+      }
+      @for (wish of playedList; track wish.id) {
+        <div class="d-flex flex-column gap-4 w-50">
+          <label class="d-flex flex-column">
+            <span class="d-flex gap-2"
+              ><mat-icon>person</mat-icon> {{ wish.idUsuario.username }} ha añadido
+              <a [routerLink]="['/detail', wish.videojuego.id]">'{{ wish.videojuego.titulo }}'</a> a
+              su playedList
+            </span>
+          </label>
+        </div>
+      }
+    } @else {
+      <h3>De momento no hay actividad disponible</h3>
+    }
+  } @else {
+    <mat-spinner></mat-spinner>
+  }
+</div>
