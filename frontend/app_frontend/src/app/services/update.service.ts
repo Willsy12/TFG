@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CustomList } from '../interfaces/videojuegos';
 import { Estado } from '../interfaces/genero.enum';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UpdateService {
-  private readonly BASE_URL = 'http://127.0.0.1:8000/api/v1/';
+  private readonly BASE_URL = environment.apiUrl;
   private readonly HEADERS = new HttpHeaders().set(
     'Authorization',
     `Token ${localStorage.getItem('token')}`

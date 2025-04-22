@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s-9ucastgps3yv5%xdz0$=#_l5m*#ig8*-y)7=y(!-2&t20)ho'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-s-9ucastgps3yv5%xdz0$=#_l5m*#ig8*-y)7=y(!-2&t20)ho')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,6 +86,7 @@ REST_FRAMEWORK = {
 
 }
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Permitir Angular en desarrollo
 ]
