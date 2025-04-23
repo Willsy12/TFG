@@ -10,12 +10,13 @@ import {
   WishList,
 } from '../interfaces/videojuegos';
 import { map, Observable, of, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  private readonly BASE_URL = 'http://127.0.0.1:8000/api/v1/';
+  private readonly BASE_URL = environment.apiUrl;
   private readonly HEADERS = new HttpHeaders().set(
     'Authorization',
     `Token ${localStorage.getItem('token')}`
