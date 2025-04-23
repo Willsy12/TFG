@@ -1,17 +1,53 @@
 <div class="custom-list-grid">
   <a href="/Mis-Listas/" class="previous-link"><mat-icon>arrow_back</mat-icon></a>
-  <div>
-    <h3>Nombre</h3>
-    <label>{{ customList.nombre }}</label>
-  </div>
-  <div>
-    <h3>Videojuegos</h3>
-    <div class="game-grid">
-      @for (videogame of videogames; track videogame.id) {
-        <a [routerLink]="['/detail', videogame.id]" class="game-card">
-          <img src="{{ videogame.imagen }}" />
-        </a>
-      }
+  @if (!isEditMode) {
+    <div>
+      <h3>Nombre</h3>
+      <label>{{ customList.nombre }}</label>
     </div>
-  </div>
+    <div>
+      <h3>Videojuegos</h3>
+      <div class="game-grid">
+        @for (videogame of videogames; track videogame.id) {
+          <a [routerLink]="['/detail', videogame.id]" class="game-card">
+            <img src="{{ videogame.imagen }}" />
+          </a>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="d-flex flex-column">
+      <label>Nombre</label>
+      <input class="w-50 mt-2" [(ngModel)]="customList.nombre" value="customList.nombre" />
+    </div>
+
+    <div class="d-flex flex-column">
+      <label> Videojuegos</label>
+      <button (click)="openDialogShowVideogames()" class="w-50 mt-2">
+        <span class="align-middle">Añadir</span> <mat-icon class="align-middle">add</mat-icon>
+      </button>
+
+      <div class="row">
+        @for (videogame of tagListVideogame; track videogame.id) {
+          <div class="col-3 mt-1">
+            <app-tag
+              [valor]="videogame.titulo"
+              (deleteEvent)="deleteVideogameTag($event)"
+            ></app-tag>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (showErrorMessage) {
+      <span class="text-danger"
+        >Debe haber al menos un videojuego en la lista o un nombre en la lista</span
+      >
+    }
+
+    <div class="text-end">
+      <button type="button" (click)="disableAddMode()" class="me-3 cancel-button">Cancelar</button>
+      <button class="accept-button" (click)="updateCustomList()">Aceptar</button>
+    </div>
+  }
 </div>

@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { TagComponent } from '../../material/tag/tag.component';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-custom-list-layout',
@@ -28,7 +29,8 @@ export class CustomListLayoutComponent implements OnInit {
   constructor(
     private updateService: UpdateService,
     private searchService: SearchService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +90,7 @@ export class CustomListLayoutComponent implements OnInit {
       this.updateService.addElementList(id, v.id).subscribe({
         next: (res: boolean) => {
           this.disableAddMode();
+          this.openSnackBar('Lista creada');
           this.loadCustomLists();
         },
       });
@@ -105,8 +108,15 @@ export class CustomListLayoutComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.openSnackBar('Lista borrada');
         this.updateCustomLists(customList);
       }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 

@@ -12,3 +12,7 @@ body {
     align-items: center;
   }
 }
+:host ::ng-deep p-rating {
+  position: static !important;
+  z-index: auto !important;
+}
