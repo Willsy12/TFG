@@ -126,6 +126,12 @@ class CustomListDisplay(BaseTestCase):
         super().setUp() 
         self.customList = CustomList.objects.create(id=UUID, nombre="EXAMPLE",idUsuario=self.test_user)
         self.elementList = ElementList.objects.create(id=UUID, idVideojuego=self.test_videogame_1, idLista=self.customList)
+        self.test_videogame_3 = Videogame.objects.create(título="Test_videogame_3",
+            añoLanzamiento=1990,
+            genero=Videogame.TipoGenero.DEPORTE,
+            resumen='Resumen',
+            imagen='link_image',
+            desarrolladora='Test_developer')
 
     def test_000_customList_display(self):
         response = self.client.get(
@@ -205,6 +211,37 @@ class CustomListDisplay(BaseTestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    
+    def test_007_customList_elements_update_with_new_videogame(self):
+        request = {"idVideojuego": self.test_videogame_3.id}
+
+        response = self.client.put(
+            f'{BASE_URL}myLists/{self.customList.id}/elements/',
+            HTTP_AUTHORIZATION = self.auth_header,
+            data=request
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    
+    def test_008_customList_elements_update_without_changes(self):
+        request = {"idVideojuego": self.test_videogame_1.id}
+
+        response = self.client.put(
+            f'{BASE_URL}myLists/{self.customList.id}/elements/',
+            HTTP_AUTHORIZATION = self.auth_header,
+            data=request
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_205_RESET_CONTENT)
+    
+    def test_009_customList_elements_delete_videogame(self):
+
+        response = self.client.delete(
+            f'{BASE_URL}myLists/{self.customList.id}/elements/{self.test_videogame_1.id}/',
+            HTTP_AUTHORIZATION = self.auth_header        
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 class WishListAndPlayedListTest(BaseTestCase):
     def setUp(self):

@@ -89,6 +89,27 @@ class CustomLists(viewsets.ModelViewSet):
         except Exception as e :
             raise NotFound("No se encontro la lista solicitada")
     
+    def update(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            idLista = kwargs.get('pk')  # Obtener el ID de la lista desde los parámetros de la URL
+            request_nombre = request.data.get('nombre')
+            if len(request_nombre) < 1:
+                return Response({'detail':"Se ha producido un error al crear la lista"}, status.HTTP_400_BAD_REQUEST)
+ 
+            customList = CustomList.objects.get(id=idLista, idUsuario=user)
+
+            # Actualizar el nombre de la lista
+            customList.nombre = request_nombre
+            customList.save()
+
+            # Serializar y devolver la lista actualizada
+            serializer = CustomListSerializer(customList)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'detail':"Se ha producido un error al crear la lista"}, status.HTTP_400_BAD_REQUEST)
+        
 class ElementLists(viewsets.ModelViewSet):
     serializer_class = ElementListSerializer
 
@@ -118,6 +139,35 @@ class ElementLists(viewsets.ModelViewSet):
         except Exception as e:
                 raise NotFound("No se encontro la informacion adecuada, pruebe otra vez")
 
+    def update(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            request_idVideojuego = request.data.get('idVideojuego')
+            idLista = kwargs.get('idLista')
+            custom_list = CustomList.objects.get(id=idLista, idUsuario=user)
+            videojuego = Videogame.objects.get(id=request_idVideojuego)
+            elementList = ElementList.objects.filter(idLista=custom_list, idVideojuego=videojuego)
+            if not elementList.exists():
+                return self.create(request, *args, **kwargs)
+
+            return Response({"detail": "Se ha actualizado correctamente"}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({'detail':"Se ha producido un error al añadir el videojuego a la lista"}, status.HTTP_400_BAD_REQUEST)
+        
+    def destroy(self, request, *args, **kwargs):
+        try:
+            user = self.request.user
+            request_idVideojuego = kwargs.get('idVideojuego')
+            idLista = kwargs.get('idLista')
+            custom_list = CustomList.objects.get(id=idLista, idUsuario=user)
+            videojuego = Videogame.objects.get(id=request_idVideojuego)
+            elementList = ElementList.objects.get(idLista=custom_list, idVideojuego=videojuego)
+            elementList.delete()
+            return Response({"detail": "Se ha eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            print(e)
+            return Response({'detail':"Se ha producido un error al añadir el videojuego a la lista"}, status.HTTP_400_BAD_REQUEST)
+        
 class WishLists(viewsets.ModelViewSet):
     serializer_class = WishListSerializer
 
