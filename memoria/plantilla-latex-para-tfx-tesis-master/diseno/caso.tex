@@ -1,0 +1,99 @@
+A continuación se detallan los casos de uso: 
+\paragraph{CU-001}
+\begin{description}
+    \item \textbf{Nombre de caso de uso:} Creación de lista personalizada.
+    \item \textbf{Actores involucrados:} Usuario, base de datos(externo).
+    \item \textbf{Resumen:} El usuario crea una lista personalizada de videojuegos.
+    \item \textbf{Pre-condiciones:} Ninguna.
+    \item \textbf{Post-condiciones:} La lista queda registrada en el sistema y visible para el usuario.
+    \item \textbf{Curso básico de eventos:} 
+    
+    \begin{enumerate}
+            \item El usuario introduce su nombre de usuario, correo electrónico y contraseña en el formulario de registro.
+            \item El sistema redirige al usuario a un formulario de autenticación. 
+            \item El sistema introduce sus nombre de usuario y contraseña en el formulario de autenticación.
+            \item El sistema redirige al usuario a la página principal.
+            \item El usuario accede a la sección de lista personalizadas.
+            \item El usuario selecciona la opción 'Crear lista'.
+            \item El usuario indica el nombre de la lista y agrega los videojuegos que desea incluir.
+            \item El usuario confirma la operación.
+            \item El sistema guarda la lista, muestra un mensaje de confirmación y la muestra en la sección de lista personalizadas.
+    \end{enumerate}
+    \item \textbf{Caminos alternativos:}
+    \begin{enumerate}
+        \item El usuario introduce un nombre de usuario o un correo electrónico existente y/o contraseña inválida en el formulario de registro. El sistema muestra un mensaje de error indicando 
+            que vuelva a rellenar el formulario de registro.
+        \item El usuario introduce un nombre de usuario y/o contraseña inválidos en el formulario de autenticación. El sistema muestra un mensaje de error indicando 
+        que vuelva a rellenar el formulario de autenticación.
+        \item Si el usuario no indica nombre y/o no agrega videojuegos, el sistema notifica al usuario con un mensaje de error.
+        \item El usuario cancela la operación. El sistema no crea la lista y redirige al usuario a la sección de listas.
+        \item El usuario cierra sesión antes de completar la operación. El sistema no crea la lista y redirige al usuario al formulario de autenticación.
+    \end{enumerate}
+\end{description}
+
+\paragraph{CU-002}
+\begin{description}
+    \item \textbf{Nombre de caso de uso:} Valoración de un videojuego.
+    \item \textbf{Actores involucrados:} Usuario, base de datos(externo).
+    \item \textbf{Resumen:} El usuario realiza una valoración de un videojuegos asignando una puntuación 
+    y un comentario opcional.
+    \item \textbf{Pre-condiciones:} El usuario se ha registrado e identificado en el sistema.
+    \item \textbf{Post-condiciones:} La valoración se guarda en el sistema y queda reflejado en la información 
+    del videojuego.
+    \item \textbf{Curso básico de eventos:} 
+    \begin{enumerate}
+            \item El usuario selecciona el videojuego que quiere valorar.
+            \item El usuario selecciona la opción de 'Valorar'.
+            \item El usuario indica la puntuación entre 1-5 estrellas y,opcionalmente, un comentario.
+            \item El usuario confirma la valoración.
+            \item El sistema almacena la valoración y actualiza la valoración media del videojuego.
+            \item El sistema muestra un mensaje de confirmación y muestra la valoración creada.
+
+    \end{enumerate}
+    \item \textbf{Caminos alternativos:}
+    \begin{enumerate}
+        \item El usuario no introduce la puntuación. El sistema muestra un mensaje de error y solicita que 
+        complete el campo.
+        \item El usuario cancela la operación. El sistema no almacena la valoración y le redirige a la información 
+        del videojuego. 
+    \end{enumerate}
+\end{description}
+
+\paragraph{CU-003}
+\begin{description}
+    \item \textbf{Nombre de caso de uso:} Crear amistad.
+    \item \textbf{Actores involucrados:} Usuario, base de datos(externo).
+    \item \textbf{Resumen:} El usuario envía una solicitud de amistad a otro usuario.
+    \item \textbf{Pre-condiciones:} El usuario se ha registrado e identificado en el sistema.
+    \item \textbf{Post-condiciones:} Se crea la amistad si el otro usuario acepta la solicitud.
+    \item \textbf{Curso básico de eventos:} 
+    \begin{enumerate}
+            \item El usuario accede a la sección de amistad.
+            \item El usuario selecciona la opción de 'Añadir amigo'.
+            \item El usuario introduce el nombre de usuario con el que quiere establecer una amistad.
+            \item El sistema envía la solicitud al otro usuario y muestra un mensaje de confirmación de 
+            que la solicitud ha sido enviada.
+            \item El otro usuario accede a la sección de amistad. 
+            \item El otro usuario selecciona la opción de 'Solicitudes pendientes'.
+            \item El otro usuario acepta la solicitud de amistad. 
+            \item El sistema muestra un mensaje de confirmación y actualiza la lista de amistades.
+    \end{enumerate}
+    \item \textbf{Caminos alternativos:}
+    \begin{enumerate}
+        \item El usuario introduce un nombre de usuario no válido, el sistema no muestra nada. 
+        \item El usuario vuelve a enviar una solicitud de amistad al mismo usuario. El sistema muestra 
+        un mensaje de error indicando que ya existe una solicitud pendiente o una amistad..
+        \item El otro usuario rechaza la solicitud. El sistema no crea amistad y no actualiza la lista de amistades.
+    \end{enumerate}
+\end{description}
+
+
+Por último, se muestra un único diagrama de casos de uso. Esta decisión permite mostrar una visión general y 
+simplificada del sistema, evitando la fragmentación en múltiples diagramas. Además, ayuda a eliminar redundancias
+en los actores y casos de uso que podrían repertirse si se dividiera en varios. 
+
+En la figura \ref{FIG:DIAGRAMA}, se recogen todas las funcionalidades que puede realizar el usuario dentro del sistema.
+
+\begin{figure}[Diagrama de caso de uso]{FIG:DIAGRAMA}{En este diagrama se muestran las acciones que realiza el usuario en la aplicación }
+    \image{10cm}{}{caso}
+\end{figure}

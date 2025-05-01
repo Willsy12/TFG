@@ -1,0 +1,53 @@
+Para asegurar el correcto funcionamiento de la aplicación, se han desarrollado pruebas tanto en el backend como en el frontend.
+
+\paragraph{TestCase}
+Las pruebas del backend se han implementado utilizando la librería TestCase \cite{djangotesting2025}. Se han creado pruebas específicos para cada uno de los módulos principales del sistema:
+
+\begin{description}
+    \item Módulo de autenticación: se verifican el registro, inicio de sesión y verificación del token.
+    \item Módulo de amistad: se comprueba el envío, aceptación y eliminación de solicitudes de amistad.
+    \item Módulo de búsqueda: se validan las consultas de videojuegos y listas.
+\end{description}
+
+Estas pruebas se ejecutan utilizando una base de datos temporal que se crea y destruye para cada prueba, lo que permite no afectar a los datos reales del sistema. 
+Cada prueba se ejecuta siguiendo un patrón:
+\begin{enumerate}
+    \item Preparación del entorno: se crea un usuario de prueba y se insertan videojuegos de prueba.
+    \item Ejecución de la petición: se realiza una petición HTTP al endpoint correspondiente del servidor.
+    \item Verificación de la respuesta: se comprueba el código de estado HTTP y el contenido de la respuesta utilizando aserciones.
+\end{enumerate} 
+
+En el código \ref{COD:CODIGOPYE} se muestra un ejemplo de prueba de búsqueda de videojuegos y en la figura \ref{FIG:TESTCASE} se muestra su salida.
+\PythonCode[COD:CODIGOPYE]{Pruebas django}{En este código se presenta la ejecución y verificación de la respuesta}{python/tests.py}{95}{99}{1}
+
+\begin{figure}[Salida TestCase]{FIG:TESTCASE}{Salida de una prueba de TestCase que comprueba la búsqueda de videojuegos}
+    \image{10cm}{}{django}
+\end{figure}
+
+\paragraph{Cypress}
+Para el frontend, se han realizado pruebas end-to-end utilizando la herramienta Cypress \cite{cypresstest2025}, que permite simular la interacción del usuario con la interfaz.
+
+Se han desarrollado tres pruebas principales que validan los siguientes aspectos: 
+\begin{description}
+    \item Funcionamiento del formulario de login y registro.
+    \item Búsqueda de videojuegos desde la barra de búsqueda.
+    \item Creación de listas de videojuegos por parte del usuario.
+\end{description}
+
+Estas pruebas permiten comprobar que los componentes de la interfaz responden correctamente a interacciones del usuario y que la comunicación con el backend se realiza correctamente.
+
+Cada prueba contiene:
+\begin{enumerate}
+    \item Verificación de la interfaz: se comprueba que los elementos de la interfaz existan y que se muestren correctamente.
+    \item Simulación de la interacción del usuario: se simulan acciones como hacer clic en botones, rellenar formularios y navegar por la aplicación.
+\end{enumerate}
+
+En la figura \ref{FIG:CYPRESS} se muestra un ejemplo de prueba donde se comprueba que los elementos de la interfaz exiten y las respuestas del servidor son correctas 
+y en la figura \ref{FIG:CYPRESS2} realiza una interacción del usuario.
+
+\begin{figure}[Pruebas Cypress comprobación de elementos]{FIG:CYPRESS}{Salida de una prueba de Cypress que comprueba elementos de la interfaz y respuestas del servidor}
+    \image{13cm}{}{cypress}
+\end{figure}
+\begin{figure}[Pruebas Cypress interacción del usuario]{FIG:CYPRESS2}{Salida de una prueba de Cypress que simula interacciones del usuario pinchando en un botón y rellenando un formulario}
+    \image{13cm}{}{cypress2}
+\end{figure}

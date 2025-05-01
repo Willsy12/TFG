@@ -1,0 +1,28 @@
+
+\paragraph{Realizar valoración}
+En la figura \ref{FIG:VAR}, se observa el comportamiento del sistema cuando el usuario realiza la valoración del videojuego. 
+Una vez que el usuario se autentica, este podrá ver la información del videojuego y, a continuación, realizar la valoración. 
+Para llevar a cabo la valoración, debe rellenar el formulario. Una vez que el usuario envía el formulario, el backend valida 
+la información y responde 'OK' que indica que la operación ha sido exitosa.
+
+\begin{figure}[Flujo realizar valoración]{FIG:VAR}{En este diagrama se puede ver el proceso completo de la valoración de un videojuego}
+    \image{10cm}{}{valorar}
+\end{figure}
+
+\paragraph{Crear lista}
+En la figura \ref{FIG:VAR}, se observa el comportamiento del sistema cuando el usuario crea una lista personalizada. Tras autenticarse, 
+el usuario accede a la sección de 'Mis listas' y selecciona la opción de 'Crear lista'. A continuación, rellena el formulario con la información adecuada
+que es enviada al backend, quien almacena la nueva lista y devuelve 'OK' que indica que la operación ha sido exitosa.
+
+\begin{figure}[Flujo crear lista personalizada]{FIG:VAR2}{En este diagrama se puede ver el proceso completo de la creación de la lista personalizada }
+    \image{10cm}{}{crearlista}
+\end{figure}
+
+\paragraph{Editar lista}
+Tras completar el paso anterior, el usuario puede editar su lista. El usuario selecciona la lista que desea
+actualizar. A continuación, rellena el formulario con los datos nuevos. Esta información es enviada al backend, que actualiza el contenido 
+y responde 'OK'. Este proceso se ilustra en la figura \ref{FIG:VAR3}
+
+\begin{figure}[Flujo editar lista personalizada]{FIG:VAR3}{En este diagrama se puede ver el proceso completo de la edición de la lista personalizada }
+    \image{10cm}{}{editarlista}
+\end{figure}

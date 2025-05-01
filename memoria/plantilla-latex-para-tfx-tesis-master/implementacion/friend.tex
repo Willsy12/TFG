@@ -1,0 +1,29 @@
+\paragraph{Sección amistad}
+Desde la sección de amistad, es posible establecer amistad y confirmar o rechazar solicitudes. El componente padre de esta sección 
+es FriendshipComponent, que contiene dos componentes hijos:
+UserListComponent y RequestFriendshipComponent.
+Para iniciar una solicitud es componente UserListComponent es el encargado.El usuario abre un diálogo que incluye un campo de búsqueda para introducir el nombre de otro usuario. Al hacer clic en buscar, 
+se realiza una petición al endpoint allUsers/, que devuelve la lista de usuarios sin privilegios respetando su anonimato. La búsqueda de los usuarios 
+por nombre emplea la misma herramienta de coincidencias que los videojuegos(DjangoFilterBackend y SearchFilter). 
+Los resultados se mapean a objetos Usuario y se muestran mediante el componente UserList, cada uno acompañado de un botón de acción. 
+Al pulsar dicho botón, se envía una solicitud de amistad al endpoint 'friendships/'.
+
+Por el lado del backend, se comprueba si ya existe una solicitud en marcha o si ya son amigos. En caso de que se cumplan 
+esas condiciones, se devuelve un error, de lo contrario, se crea la solicitud de amistad y se establece su estado a 'pendiente'.
+
+Cuando un usuario recibe una solicitud de amistad entra en acción el componente RequestFriendshipComponent, 
+este muestra un recuadro para aceptar o rechazar la solicitud. Si se acepta, 
+se actualiza el estado a “aceptada” mediante una nueva petición al endpoint friendships/. En caso de rechazarla, la solicitud no se elimina, 
+sino que queda registrada como “rechazada”. En ambos casos, la interfaz se actualiza automáticamente con los nuevos estados recibidos del backend.
+
+La figura \ref{FIG:AMIS} muestra el flujo de interacción de la sección de amistad.
+
+\begin{figure}[Componentes implicados para la sección 'Amistades']{FIG:AMIS}{ En este diagrama se puede ver el proceso completo de la gestión de amistades}
+    \image{13cm}{}{friend}
+\end{figure}
+
+\paragraph{Sección actividad}
+En la pantalla de actividad, se muestra el listado de valoraciones de los usuarios con los que se ha establecido amistad. Para ello, 
+se realizan dos peticiones, una para obtener los usuario amigos y otra para obtener las valoraciones del sistema. Una vez obtenido los resultados, 
+se filtra desde el frontend las valoraciones de los usuarios amigos y se muestran en la pantalla. También se realiza el mismo flujo 
+para obtener los videojuegos jugados o añadidos a la lista de deseos por los amigos.

@@ -1,0 +1,38 @@
+La comunicación entre frontend y backend se realiza mediante \textbf{API REST}
+
+\paragraph{Frontend}
+Por el lado del frontend, gracias al modulo HttpClient de Angular, se realizan peticiones HTTP al servidor.
+Este módulo se utiliza mediante la inyección de dependencias, lo que facilita su uso en los componentes de la aplicación.
+Con el uso de este módulo, se han implementado tres servicios principales que se encargan de gestionar las operaciones relacionadas con el backend:
+\begin{description}
+    \item [AuthService:] se encarga de enviar las peticiones relacionadas con la autenticación, registro y cierre de sesión de los usuarios.
+    \item [SearchService:] encargado de las peticiones GET.
+    \item [UpdateService:] encargado de las peticiones relacionadas con la actualización o eliminación de los recursos del servidor.
+\end{description} 
+
+Una vez que el servidor responde, se transforman los datos en objetos comprensibles por Angular mediante funciones de mapeo.
+Dicha transformación permite modifcar los datos para adaptarlos a las necesidades de la aplicación, como por ejemplo,
+mostrar el genero del videojuego de forma más legible en la aplicación o aplicar funciones de filtrado sobre los objetos 
+transformados.
+
+En la figura \ref{FIG:MAP}, se observa como se realiza el mapeo de los datos a objetos de Angular. 
+
+\begin{figure}[Mapeo de respuesta]{FIG:MAP}{En esta figura se muestra el mapeo de los datos al objeto Videojuegos}
+    \image{10cm}{}{videojuegos}
+\end{figure}
+
+\paragraph{Backend}
+Por el lado del backend, las rutas de la API están protegidas mediante la librería Djoser que valida automáticamente la presencia y validez del token JWT.
+En la figura \ref{COD:CODIGOPY} se muestra cómo se protegen las rutas de la aplicación.
+
+\PythonCode[COD:CODIGOPY]{Protección urls}{En esta figura se presenta la protección de las rutas usando Djoser}{python/urls.py}{17}{24}{1}
+
+Si el token, no está presente o no es válido, se devuelve un error 401
+En caso contrario, cada viewset ejecuta la lógica correspondiente, implicando operaciones de búsquedas, actualizaciones o inserciones en 
+la base de datos mediante el ORM de Django. Por último, la respuesta
+se envía al frontend en formato JSON, junto con el código de respuesta HTTP correspondiente. En la figura \ref{FIG:CODIGOPY2} se muestra 
+un ejemplo de respuesta del servidor al frontend.
+
+\begin{figure}[Respuesta del servidor]{FIG:CODIGOPY2}{En esta figura se muestra la lista de videojugos devuelta por el servidor}
+    \image{10cm}{}{respuesta}
+\end{figure}

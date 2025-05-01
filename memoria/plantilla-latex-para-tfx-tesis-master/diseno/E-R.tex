@@ -1,0 +1,23 @@
+La base de datos de la aplicación contiene las siguientes tablas: 
+\begin{description}
+    \item \textbf{Usuarios: } Almacena la información de los usuarios como el correo electrónico,
+    nombre de usuario y contraseña.
+    \item \textbf{Videojuegos: } Contiene la información sobre los videojuegos disponibles.Incluye campos como el título, 
+    año de lanzamiento, género, resumen, desarrolladora e imagen. El campo "género" puede tomar valores como: acción, deporte, 
+    simulación, estrategia, arcade, musicales, juegos de mesa y aventura. La imagen se representa mediante una URL para 
+    evitar almacenar archivos multimedia dentro del proyecto.
+    \item \textbf{Amistad: } Almacena las amistades entre los usuarios. En esta tabla se almacena los identificadores de los usuarios 
+    involucrados y el estado que puede ser: aceptado, rechazado o pendiente. 
+    \item \textbf{Wishlist: } Almacena los videojuegos que el usuario desea jugar en un futuro. Como su comportamiento es similar a la 
+    lista de videojuegos jugados (playedList), se establece el campo 'wishlist' para diferenciarlos.
+    \item \textbf{Valoraciones: }Almacena las valoraciones que realizan los usuario sobre los videojuegos.
+    \item \textbf{Listas personalizadas: } Almacena las listas personalizadas de los usuarios para organizar sus videojuegos.
+    \item \textbf{Elementos listas: } Esta tabla asocia cada videojuego a una lista correspondiente.
+\end{description}
+
+En la figura \ref{FIG:DIAGRAMABASE} se muestra el diseño de la base de datos, cada tabla con sus atributos y claves 
+correspondientes. 
+
+\begin{figure}[Diagrama de base de datos]{FIG:DIAGRAMABASE}{En este diagrama se muestran los campos de todas las tablas relacionales }
+    \image{10cm}{}{base}
+\end{figure}

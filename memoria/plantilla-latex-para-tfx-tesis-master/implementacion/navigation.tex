@@ -1,0 +1,16 @@
+La navegación entre pantallas se realiza mediane Angular Router, permitiendo elegir a cada pantalla un componente específico. Además 
+cada pantalla se protege mediante un guard, para comprobar si el usuario se ha autenticacido en el sistema. En caso de que quiera 
+acceder a una ruta específica sin haber iniciado sesión, se redirige a la pantalla de inicio de sesión.
+
+En la figura \ref{FIG:GUARD}, en la ventana de inspección, se observa que se ha realizado la petición a la pantalla de 'Mis-listas', pero el guard 
+ha redirigido al usuario a la pantalla de inicio de sesión. 
+
+\begin{figure}[Intento de acceso a una ruta protegida]{FIG:GUARD}{Intento de acceso a una ruta protegida}
+    \image{15cm}{}{guard}
+\end{figure}
+
+\begin{figure}[Navegación entre pantallas]{FIG:ROUTER}{Navegación entre pantallas}
+    \image{15cm}{}{navegacion}
+\end{figure}
+
+En la figura \ref{FIG:ROUTER} se muestra el esquema de navegación entre las distintas pantallas de la aplicación.

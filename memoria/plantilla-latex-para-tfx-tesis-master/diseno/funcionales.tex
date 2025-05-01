@@ -1,0 +1,59 @@
+Los requisitos funcionales son los siguientes: 
+
+\begin{functional}
+    \item Subsistema de autenticación
+    \begin{functional}
+        \item El sistema permite a los usuarios registrarse mediante correo electrónico, nombre de usuario y contraseña.
+        \begin{functional}
+            \item El usuario deberá escribir un correo electrónico válido y nombre de usuario único y confirmar la contraseña.
+        \end{functional}
+        \item El sistema permite a los usuarios identificarse mediante usuario y contraseña.
+        \item El sistema no permite registrar a usuarios con el mismo correo o nombre de usuario.
+    \end{functional}
+
+    \item Subsistema de valoración
+    \begin{functional}
+        \item El sistema permite a los usuarios realizar valoraciones de los videojuegos, las cuales quedarán asociadas a su cuenta.
+        \begin{functional}
+            \item El usuario debe seleccionar una calificación entre 1 y 5 estrellas, donde 1 representa la puntuación más baja y 5 la más alta.
+            \item Opcionalmente, el usuario podrá escribir un comentario.
+        \end{functional} 
+    \end{functional}
+
+    \item Subsistema de listas de videojuegos
+    \begin{functional}
+        \item El sistema permite a los usuarios añadir videojuegos a una lista de deseos (wishlist) para marcar aquellos que quieren jugar. 
+        \item El sistema permite a los usuarios eliminar videojuegos de su lista de deseos (wishlist) cuando ya no desean jugarlos.
+        \item El sistema permite a los usuarios marcar los videojuegos que han jugado.
+        \item El sistema permite a los usuarios desmarcar los videojuegos que han jugado, previamente indicados como jugados.
+        \item El sistema permite a los usuarios crear listas de videojuegos personalizadas ya sean jugados o no.
+        \begin{functional}
+            \item Deberá indicar, el nombre de la lista y los videojuegos asociados a esa lista.
+        \end{functional}
+        \item El sistema permite a los usuarios eliminar listas personalizadas de videojuegos. 
+        \item El sistema permite eliminar videojuegos que están en las listas personalizadas del usuario.
+    \end{functional}
+
+    \item Subsistema de amistad
+    \begin{functional}
+        \item El sistema permite a los usuarios enviar solicitudes de amistad a otros usuarios.
+        \begin{functional}
+            \item La solicitud deberá incluir el nombre de usuario del destinatario.
+        \end{functional}
+        \item El sistema indica al usuario si tiene solicitudes pendientes.
+        \begin{functional}
+            \item El usuario podrá aceptar o rechazar dichas solicitudes.
+        \end{functional}
+        \item El sistema permite al usuario visualizar la actividad de los usuarios con los que ha establecido amistad.
+        \begin{functional}
+            \item Se mostrará la lista de videojuegos valorados, junto con su puntuación y comentario (si lo hubiera).
+        \end{functional}
+    \end{functional}
+
+    \item Subsistema de búsqueda
+    \begin{functional}
+        \item El sistema permite a los usuarios buscar videojuegos por título, género, año de lanzamiento y/o desarrolladora.
+        \item El sistema muestra información relevante de cada videojuego, como el año de lanzamiento, la desarrolladora, la valoración media y los comentarios de los usuarios.
+    \end{functional}
+
+\end{functional}

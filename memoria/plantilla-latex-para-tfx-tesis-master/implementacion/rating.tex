@@ -1,0 +1,28 @@
+\paragraph{Detalle de videojuego}
+En la vista de detalle de cada videojuego, aparece un diálogo implementado en el componente RatingDialog. Dicho componente cuenta con formulario 
+donde se muestran las estrellas de puntuación y un cuadro de texto. Para la realización de las estrellas, se utiliza el 
+componente p-rating de la librería RatingModule. Una vez que el usuario envía el formulario de valoración, se llama al servicio UpdateService, 
+que realiza la petición al endpoint 'ratings/'. Una vez obtenida la respuesta, se actualiza la vista para mostrar las nuevas valoraciones, se actualiza 
+la media de las valoraciones y se muestra un snackbar de confirmación(RF-2). Además cuenta con el componente RatingList que muestra una lista 
+de valoraciones de los usuarios. 
+
+En la figura \ref{FIG:RATING_DIALOG} se muestra el diálogo de valoración 
+y en \ref{FIG:RAING_DIALOG_AFTER} el mensaje de confirmación.
+
+\begin{figure}[Diálogo de valoración]{FIG:RATING_DIALOG}{Diálogo de valoración de un videojuego}
+    \image{13cm}{}{rating_dialog}
+\end{figure}
+
+\begin{figure}[Mensaje de confirmación de valoración]{FIG:RAING_DIALOG_AFTER}{Mensaje de confirmación de valoración de un videojuego}
+    \image{13cm}{}{rating_dialog_after}
+\end{figure}
+
+Desde el backend, no se aplica ningún control que limite a un usuario a realizar una única valoración por videojuego, simplemente 
+se añaden más registros a la base de datos. En la figura \ref{FIG:RATING} se muestra como el usuario ha realizado varias valoraciones para 
+el mismo videojuego. 
+
+\begin{figure}[Valoraciones de un usuario]{FIG:RATING}{Consulta en base de datos de las valoraciones de un usuario al mismo videojuego}
+    \image{13cm}{}{rating}
+\end{figure}
+
+Todo el proceso de valoración se observa en la figura \ref{FIG:DETALLE}.

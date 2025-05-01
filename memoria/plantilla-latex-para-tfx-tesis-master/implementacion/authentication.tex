@@ -1,0 +1,23 @@
+El subsistema de autenticación, accesible desde la pantalla de inicio de sesión, permite a los usuarios registrarse e iniciar sesión
+y obtener un token JWT para realizar las peticiones al backend. 
+
+Por el lado del frontend, el componente LoginComponent contiene los formularios 
+de registro y acceso, que se implementan mediante Angular Reactive Forms. Gracias a ello, permite emplear validadores tanto personalizados como de 
+Angular, para comprobar que los campos estén rellenos correctamente. El componente invoca al servicio AuthService, para realizar la petición POST
+al endpont '/users' para el registro y al endpoint '/token/login' para el acceso. Cuando se obtiene el token, se almacena 
+en el almacenamiento local del navegador mediante el servicio Storage, para su uso en futuras peticiones al backend. 
+
+
+Por el lado del backend, Djoser proporciona un conjunto de endpoints por defecto para la autenticación de usuarios, como resetear contraseña 
+o confirmar el correo electrónico. Una vez que se accede al enpoint, Djoser valida el token JWT y, si es válido, permite el acceso a los recursos protegidos, 
+en caso contrario, devuelve un error 401 Unauthorized (RNF-2).
+
+En la figura \ref{FIG:ERROR}
+se muestra un ejemplo de error al intentar acceder a un endpoint sin proporcionar el token JWT.
+
+\begin{figure}[Prueba PostMan]{FIG:ERROR}{Solicitud GET sin token JWT}
+    \image{15cm}{}{error}
+\end{figure}
+
+Mediante PostMan, se realiza un solicitud GET sin incluir ningún token JWT, lo que provoca un error 401 Unauthorized, y el mensaje de error 
+del servidor.

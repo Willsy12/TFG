@@ -1,0 +1,92 @@
+% arara: clean: {files: [tfgtfmthesisuam.aux, tfgtfmthesisuam.idx, tfgtfmthesisuam.ilg, tfgtfmthesisuam.ind, tfgtfmthesisuam.bbl, tfgtfmthesisuam.bcf, tfgtfmthesisuam.blg, tfgtfmthesisuam.run.xml, tfgtfmthesisuam.fdb_latexmk, tfgtfmthesisuam.fls, tfgtfmthesisuam.loe, tfgtfmthesisuam.lof, tfgtfmthesisuam.lol, tfgtfmthesisuam.lot, tfgtfmthesisuam.ltb, tfgtfmthesisuam.out, tfgtfmthesisuam.toc, tfgtfmthesisuam.upa, tfgtfmthesisuam.upb, tfgtfmthesisuam.acn, tfgtfmthesisuam.acr, tfgtfmthesisuam.alg, tfgtfmthesisuam.glg, tfgtfmthesisuam.glo, tfgtfmthesisuam.gls, tfgtfmthesisuam.glsdefs, tfgtfmthesisuam.idx,  tfgtfmthesisuam.ilg, tfgtfmthesisuam.xdy, tfgtfmthesisuam.loa, tfgtfmthesisuam.gnuploterrors , tfgtfmthesisuam.mw, tfgtfmthesisuam.fdb_latexmk ]}
+% arara: pdflatex: {shell: yes}
+% arara: makeglossaries
+% arara: makeindex: {style: tfgtfmthesisuam.ist }
+% arara: bibtex
+% arara: pdflatex: {shell: yes}
+% arara: pdflatex: {shell: yes}
+% arara: clean: {files: [tfgtfmthesisuam.aux, tfgtfmthesisuam.idx, tfgtfmthesisuam.ilg, tfgtfmthesisuam.ind, tfgtfmthesisuam.bbl, tfgtfmthesisuam.bcf, tfgtfmthesisuam.blg, tfgtfmthesisuam.run.xml, tfgtfmthesisuam.fdb_latexmk, tfgtfmthesisuam.fls, tfgtfmthesisuam.loe, tfgtfmthesisuam.lof, tfgtfmthesisuam.lol, tfgtfmthesisuam.lot, tfgtfmthesisuam.ltb, tfgtfmthesisuam.out, tfgtfmthesisuam.toc, tfgtfmthesisuam.upa, tfgtfmthesisuam.upb, tfgtfmthesisuam.acn, tfgtfmthesisuam.acr, tfgtfmthesisuam.alg, tfgtfmthesisuam.glg, tfgtfmthesisuam.glo, tfgtfmthesisuam.gls, tfgtfmthesisuam.glsdefs, tfgtfmthesisuam.idx,  tfgtfmthesisuam.ilg, tfgtfmthesisuam.xdy, tfgtfmthesisuam.loa, tfgtfmthesisuam.gnuploterrors , tfgtfmthesisuam.mw, tfgtfmthesisuam.fdb_latexmk ]}
+
+
+\documentclass[epsbased,copyright,final,printable,covers,extendedindex,firstnumbered,tfg,gnuplot]{tfgtfmthesisuam}
+
+\advisor{Germán Montoro Manrique}
+\levelin{Ingeniería Informática}
+\title{Desarrollo de una aplicación web para la valoración y gestión de listas de videojuegos}
+\author{Wilson Javier Simbaña Ganazhapa}
+\privateaddress{C\textbackslash\ Francisco Tomás y Valiente Nº 11}
+%\copyrightdate{1 de mayo 2025}
+
+%\dedication{A mi mujer y a mis hijos}
+%\famouscite{Lo peor es cuando has terminado un capítulo\\y la máquina de escribir no aplaude. \\[0.1em] \begin{flushright}Orson Welles\end{flushright}}
+%\prefacefile{inicio/prefacio}
+
+\ackfile{inicio/agradecimientos}
+\resumenfile{inicio/resumen}
+\abstractfile{inicio/abstract}
+
+%\keywords{Algunas}
+
+
+\coverdata
+{
+  Escuela Politécnica Superior \\
+  Universidad Autónoma de Madrid \\
+  C\textbackslash Francisco Tomás y Valiente nº 11
+}
+
+\bibliographyconfig[IEEEtran]{tfgtfmthesisuam}
+
+%\datadir{data}
+%\graphicsdir{img}
+%\logosdir{img}
+\codesdir{codes}
+
+\begin{document}
+
+\chapter{Introducción\label{CAP:INTRODUCCION}}{}
+  \section{Motivación\label{SEC:MOVIVACION}}{introduccion/motivacion}
+  \section{Objetivo\label{SEC:OBJETIVO}}{introduccion/objetivos}
+  \section{Organización de la memoria\label{SEC:ORGANIZACION}}{introduccion/organizacion}
+
+\chapter{Estado del arte\label{CAP:ESTADODELARTE}}{}
+  \section{Actualidad\label{SEC:ACTUALIDAD}}{estadoArte/actualidad}
+    \subsection{Plataformas\label{SS:PLATAFORMAS}}{estadoArte/plataformas}
+  \section{Frameworks\label{SEC:FRAMEWORKS}}{estadoArte/frameworks}
+    \subsection{Frameworks frontend\label{SS:FRONTEND}}{estadoArte/frontend}
+    \subsection{Frameworks backend\label{SS:BACKEND}}{estadoArte/backend}
+
+\chapter{Diseño\label{CAP:DISENO}}{}
+
+  \section{Análisis de requisitos\label{SEC:ANALISIS}}{diseno/analisis}
+    \subsection{Requisitos funcionales\label{SEC:FUNCIONALES}}{diseno/funcionales}
+    \subsection{Requisitos no funcionales\label{SEC:NOFUNCIONALES}}{diseno/noFuncionales}
+  \section{Diagramas\label{SEC:DIAGRAMAS}}{}
+    \subsection{Casos de uso}{diseno/caso}
+    \subsection{Diagramas de flujo}{diseno/diagramas}
+    \subsection{Diagrama de base de datos}{diseno/E-R}
+  \section{Mockups\label{SEC:mockups}}{diseno/moqups}
+
+\chapter{Implementación\label{CAP:IMPLEMENTACION}}{}
+  \section{Arquitectura del sistema\label{SEC:ARQUITECTURA}}{implementacion/arquitectura}
+  \section{Comunicación frontend - backend\label{SEC:TESTS}}{implementacion/comunicacion}
+  \section{Subsistemas y navegación\label{SEC:SISTEMAS}}{implementacion/frontend}
+    \subsection{Navegación entre pantallas\label{SEC:NAVIGATION}}{implementacion/navigation}
+    \subsection{Subsistema de autenticación\label{SEC:AUTHENTICATION}}{implementacion/authentication}
+    \subsection{Subsistema de búsqueda\label{SEC:SEARCH}}{implementacion/search}
+    \subsection{Subsistema de valoración\label{SEC:RATING}}{implementacion/rating}
+    \subsection{Subsistema de listas\label{SEC:LISTS}}{implementacion/lists}
+    \subsection{Subsistema de amistad\label{SEC:ADMINISTRATION}}{implementacion/friend}
+  \section{Pruebas\label{SEC:TESTS}}{implementacion/tests}
+\chapter{Conclusión\label{CAP:CONCLUSION}}{}
+  \section{Conclusiones\label{SEC:CONCLUSIONES}}{conclusion/conclusiones}
+  \section{Trabajo futuro\label{SEC:TRABAJO}}{conclusion/trabajo}
+
+
+%\chapter{Word\textsuperscript{\textregistered} vs. \LaTeXe\label{CAP:WORDLATEX}}{varios/wordlatex}
+%\chapter{Instalación\label{CAP:INSTALACION}}{varios/instalacion}
+%\chapter{Packetes incluidos\label{CAP:PAQUETES}}{varios/paquetes}
+%\chapter{Resumen de opciones del estilo\label{CAP:OPCIONES}}{varios/opciones}
+%\chapter{Funciones y entornos\label{CAP:FUNCENT}}{varios/funciones}
+
+\end{document}

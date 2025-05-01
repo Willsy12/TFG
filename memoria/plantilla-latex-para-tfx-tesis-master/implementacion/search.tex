@@ -1,0 +1,35 @@
+\paragraph{Búsqueda de videojuegos}
+Desde la pantalla de inicio de la aplicación, se pueden buscar los videojuego por título, género, desarrolladora y/o año de lanzamiento(RF-5.1).
+En el frontend, la pantalla principal presenta dos componentes. Por un lado, el componente VideogameFilter que presenta un formulario reactivo de búsqueda.
+En dicho componente, cuando el usuario rellena el formulario 
+y pulsa el botón de búsqueda, se genera un evento mediante EventEmitter, que llama al servicio SearchService, el cual realiza 
+la petición con los parámetros de búsqueda al endpoint 'videojuegos/'. Una vez que se obtiene la respuesta del servidor y se mapea a objetos comprensibles, 
+entra en juego el componente VideogameList, que muestra los videojuegos encontrados en forma de tarjetas. 
+
+En el servidor, el viewset se configura con DjangoFilterBackend y SearchFilter, lo que permite realizar búsquedas que coincidan con el título o 
+desarrolladora del videojuego. En la figura \ref{FIG:SEARCH} se muestran los resultados de coincidencias con la desarrolladora 'Nintendo'.
+
+\begin{figure}[Coincidencias en desarrolladora]{FIG:SEARCH}{Salida de la búsqueda de videojuegos por desarrolladora escribiendo el nombre incompleto}
+    \image{13cm}{}{search}
+\end{figure}
+Si no se recibe ningún parámetro de búsqueda, se devuelven todos los videojuegos disponibles. La figura 
+\ref{FIG:DETALLE} muestra la interacción de los componentes.
+
+\begin{figure}[Componentes implicados para la pantalla de detalle de videojuego]{FIG:DETALLE}{ En este diagrama se puede ver el proceso completo de la pantalla de detalle de videojuego}
+    \image{13cm}{}{detalleVideojuego}
+\end{figure}
+
+\paragraph{Detalle de videojuego}
+Dicho sistema también se presenta en la vista de detalle de cada videojuego(RF-5.2). Dicha pantalla viene enlazada con el subsistema de valoración 
+ya que en ella se pueden ver las valoraciones de los usuarios y realizarlas y con el subsistema de listas ya que se pueden añadir videojuegos 
+a las listas personalizadas. Desde el fronted, el componente VideogameDetailComponent muestra la información del videojuego mediante el objeto 
+Videogame (mapeado anteriormente una vez obtenida la respuesta del servidor). Dicha vista realiza una petición al servicio SearchService al 
+endpoint 'videojuegos/{id}', donde {id} es el identificador del videojuego.
+
+Por el lado del backend, simplemente se obtiene el videojuego con el id indicado en la petición y se devuelve como respuesta.
+
+El flujo de interacción se observa en la figura \ref{FIG:BUS}.
+
+\begin{figure}[Componentes implicados para la pantalla de inicio]{FIG:BUS}{ En este diagrama se puede ver el proceso completo de la búsqueda de videojuegos}
+    \image{13cm}{}{busqueda}
+\end{figure}

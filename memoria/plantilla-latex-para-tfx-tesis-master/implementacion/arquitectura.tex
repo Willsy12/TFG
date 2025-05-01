@@ -1,0 +1,12 @@
+La aplicación sigue una arquitectura \textbf{cliente-servidor} \cite{arsysclientserver2025} dividida en \textbf{tres capas}: 
+\begin{description}
+    \item[Capa de presentación:] desarrollada en Angular. En esta capa, se encuentran los componentes que
+    permiten al usuario interactuar con la aplicación. 
+    \item[Capa de lógica de negocio:] gestionada por Django. Se han implementado viewsets por cada 
+    funcionalidad de la aplicación.
+    \item [Capa de datos:] los datos se almacenan en una base de datos de PostgreSQL, que es gestionada 
+    por el ORM de Django. 
+\end{description}
+
+Esta arquitectrua permite modificar una capa sin necesidad de afectar directamente a las demás. Además,
+tanto backend como base de datos se pueden reutilizar en otras aplicaciones.

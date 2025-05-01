@@ -1,0 +1,42 @@
+\paragraph{Detalle de videojuego}
+Desde la vista de detalle de un videojuego, el usuario puede añadir o quitar el título de dos listas distintas: la lista de videojuegos jugados (playedList) y
+la lista de deseos (wishList). Para añadir el videojuego a la lista, se realiza la petición POST al endpoint 'wishList/' o 'playedList/'(RF-3.3,
+RF-3.1). Si el videojuego ya forma parte de una de estas listas, 
+se envía una petición DELETE a wishlist/{id} o playedList/{id}, siendo {id} el identificador del videojuego(RF-3.2, RF-3.4).
+Cuando se accede a la vista de detalle, el sistema realiza automáticamente una consulta para comprobar si 
+el videojuego ya está incluido en alguna de las listas. En función de esa comprobación, se modifica el icono del botón (coloreándolo de negro si ya está añadido) 
+y se muestra un tooltip que indica la acción que se realizará al pulsarlo.
+
+En el backend, se devuelve únicamente un indicador de éxito o fallo según el resultado de la operación de añadido o eliminación.
+
+El flujo de interración se observa en la figura \ref{FIG:DETALLE}
+
+\paragraph{Sección 'Mis listas'}
+Desde la pantalla de listas personalizadas, se ofrecen dos vistas, una para crear la lista y otra para visualizar las listas. A la hora de 
+visualizar las listas, el componente CustomListLayout realiza una solictud al endpoint 'myLists/'. Una vez que se obtiene la respuesta, este componente, 
+llama a otro componente, encangado de la visualización de las listas. Para cada lista, se pueden realizar dos acciones 'Eliminar' o 'Editar' (RF-3.5, RF-3.6). Para 
+aplicar esas acciones, se realiza la petición PUT o DELETE al endpoint 'api/v1/myLists/<str:pk>/', donde pk es el identificador de la lista. 
+
+A la hora de crear listas, el usuario puede definir un nombre y una descripción para cada lista personalizada. 
+El formulario de creación de listas realiza una solicitud POST al endpoint 'api/v1/myLists/' enviando los datos 
+proporcionados por el usuario. Antes de enviar los datos, se comprueba desde el front que se ha proporcionado un nombre y 
+videojuegos asociados a esa lista(RF-3.5.1). Por último, en el backend, se valida la información y, si es correcta, se almacena la nueva 
+lista en la base de datos.
+
+El flujo de interración se observa en la figura \ref{FIG:LAS}
+
+\begin{figure}[Componentes implicados para la sección 'Mis listas']{FIG:LAS}{ En este diagrama se puede ver el proceso completo de la gestión de listas}
+    \image{13cm}{}{listaLayout}
+\end{figure}
+
+\paragraph{Sección 'Played' y 'Wishlist'}
+Las pantallas de 'Played' y 'Wishlist' se implementan de manera similar realizando un petición GET al endpoint '/wishlist' o '/playedList'. La petición 
+la realiza el componente WishlistLayout y para la visualización de los videojuegos se reutiliza el componente VideogameList.
+
+Del lado del backend, en cada view set se obtienen los videojuegos asociados en función del atributo 'IsPlayedList' de la tabla 'Wishlist'.
+
+El flujo de interración se observa en la figura \ref{FIG:WISH}
+
+\begin{figure}[Componentes implicados para la sección 'Amistades']{FIG:WISH}{ En este diagrama se puede ver el proceso completo de la gestión de amistades}
+    \image{13cm}{}{wishlist}
+\end{figure}
