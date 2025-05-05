@@ -20,6 +20,7 @@ export const routes: Routes = [
       { path: 'detail/:id', component: VideogameDetailComponent },
       { path: 'Mis-Listas', component: CustomListLayoutComponent },
       { path: 'Mis-Listas/detail/:id', component: CustomListDetailComponent },
+      { path: 'Mis-Listas/detail/:id/edit', component: CustomListDetailComponent },
       { path: 'WishList', component: WishListComponent },
       { path: 'PlayedList', component: WishListComponent },
       { path: 'Amistades', component: FriendshipListComponent },

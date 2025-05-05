@@ -67,6 +67,74 @@ export class UpdateService {
       .pipe(map(() => true));
   }
 
+  updateElementList(id: string, idVideogame: string): Observable<boolean> {
+    const request = { idVideojuego: idVideogame };
+
+    return this.http
+      .put(`${this.BASE_URL}myLists/${id}/elements/`, request, {
+        headers: this.HEADERS,
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          if (response.status === 201 || response.status === 205) {
+            return true;
+          } else {
+            return false;
+          }
+        }),
+        catchError((error) => {
+          console.error('Error al procesar la solicitud:');
+          return of(false);
+        })
+      );
+  }
+
+  updateCustomList(id: string, nombre: string): Observable<boolean> {
+    const request = { nombre: nombre };
+    return this.http
+      .put(`${this.BASE_URL}myLists/${id}/`, request, {
+        headers: this.HEADERS,
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          if (response.status === 200) {
+            return true;
+          } else {
+            return false;
+          }
+        }),
+        catchError((error) => {
+          console.error('Error al procesar la solicitud:');
+          return of(false);
+        })
+      );
+  }
+
+  deleteElementList(id: string, idVideogame: string): Observable<boolean> {
+    const request = { idVideojuego: idVideogame };
+    return this.http
+      .delete(`${this.BASE_URL}myLists/${id}/elements/${idVideogame}/`, {
+        headers: this.HEADERS,
+
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          if (response.status === 204) {
+            return true;
+          } else {
+            return false;
+          }
+        }),
+        catchError((error) => {
+          console.error('Error al procesar la solicitud:');
+          return of(false);
+        })
+      );
+  }
+
   addVideogameRate(idVideojuego: string, comentario: string, estrellas: number) {
     const request = { idVideojuego: idVideojuego, comentario: comentario, estrellas: estrellas };
 
@@ -99,7 +167,7 @@ export class UpdateService {
           throw new Error('Unexpected response status');
         }),
         catchError((error) => {
-          console.error('Error al procesar la solicitud:', error);
+          console.error('Error al procesar la solicitud:');
           return of(Estado.RECHAZADO);
         })
       );
